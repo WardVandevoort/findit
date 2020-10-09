@@ -26,8 +26,9 @@ Route::get('/login', function () {
 });
 
 Route::get('/student_profile', function () {
-    $user = DB::table('users')->get();
-    dd($user);
+    $results = DB::table('users')->get();
+
+    dd($results);
 });
 
 Route::get('/company_profile', function () {

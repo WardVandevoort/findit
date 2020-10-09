@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <h1>hoi</h1>
+    <h1>Company Profile</h1>
 </body>
 
 </html>

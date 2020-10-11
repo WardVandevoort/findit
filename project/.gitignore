@@ -12,4 +12,5 @@ npm-debug.log
 yarn-error.log
 id_rsa
 id_rsa.pub
+.vagrant/
 /.vagrant

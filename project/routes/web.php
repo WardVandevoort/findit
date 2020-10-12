@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,15 +26,22 @@ Route::get('/login', function () {
 });
 
 Route::get('/student_profile', function () {
-    return view('student_profile');
+    $results = DB::table('users')->get();
+
+    dd($results);
 });
 
 Route::get('/company_profile', function () {
-    return view('company_profile');
+    return view('com
+    pany_profile');
 });
 
 Route::get('/internship', function () {
-    return view('internship');
+    $data = [
+        "title" => "Internships",
+        "internships" => ["webdesigner", "front-end developer"]
+    ];
+    return view('internship', $data);
 });
 
 Route::get('/student', function () {

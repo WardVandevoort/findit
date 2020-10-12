@@ -8,7 +8,12 @@
 </head>
 
 <body>
-    <h1>Internships</h1>
+    <h1>{{ $title }}</h1>
+    <ul>
+        @foreach($internships as $internship)
+        <li>{{$internship}}</li>
+        @endforeach
+    </ul>
 </body>
 
 </html>

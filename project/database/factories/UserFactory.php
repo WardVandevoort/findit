@@ -5,7 +5,7 @@ namespace Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ModelFactory extends Factory
+class UserFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
@@ -19,16 +19,20 @@ class ModelFactory extends Factory
      *
      * @return array
      */
+    
+
     public function definition()
     {
+        $gender = $this->faker->randomElements(['male', 'female'])[0];
+
         return [
-            'firstname' => $this->faker->firstName,
+            'firstname' => $this->faker->firstName($gender),
             'lastname' => $this->faker->lastName,
             'email' => $this->faker->unique()->safeEmail,
-            'telephone_nmbr' => $this->faker->phoneNumber,
-            'password' => '12345',
-            'date_of_birth' => $this->faker->date($format = 'd/m/Y', $max = 'now'),
-            'gender' => $this->faker->($gender = null|'male'|'female'),
+            'phone' => $this->faker->phoneNumber,
+            'password' => bcrypt('12345'),
+            'date_of_birth' => $this->faker->date($format = 'Y-m-d', $max = 'now', $min = '1900'),
+            'gender' => $gender,
         ];
     }
 }

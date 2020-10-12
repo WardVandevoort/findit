@@ -13,8 +13,6 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        $user = new \App\User();
-        $user->firstname = 'Ward';
-        $user->save();
+        factory(\App\Models\User::class, 10)->create();
     }
 }

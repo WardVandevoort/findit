@@ -17,6 +17,8 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->text('review_body');
             $table->integer('rating');
+            $table->integer('internship_id'); //which internship
+            $table->integer('reviewer_id'); //the id of the user
             $table->timestamps();
         });
     }

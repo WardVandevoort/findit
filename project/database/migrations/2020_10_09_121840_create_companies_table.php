@@ -17,13 +17,14 @@ class CreateCompaniesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('telephone_nmbr');
+            $table->string('phone');
             $table->string('address');
             $table->string('city');
             $table->string('postal_code');
             $table->string('province');
             $table->string('slogan');
             $table->text('description');
+            $table->integer('admin_id')->nullable();
             $table->timestamps();
         });
     }

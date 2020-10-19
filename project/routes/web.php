@@ -21,6 +21,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/internships', 'InternshipController@index');
+
 Route::get('/login', function () {
     return view('login');
 });
@@ -34,14 +36,6 @@ Route::get('/student_profile', function () {
 Route::get('/company_profile', function () {
     return view('com
     pany_profile');
-});
-
-Route::get('/internship', function () {
-    $data = [
-        "title" => "Internships",
-        "internships" => ["webdesigner", "front-end developer"]
-    ];
-    return view('internship', $data);
 });
 
 Route::get('/student', function () {

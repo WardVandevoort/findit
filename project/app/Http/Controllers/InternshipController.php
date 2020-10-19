@@ -10,4 +10,9 @@ class InternshipController extends Controller
         $data['internships'] = \DB::table('internships')->get();
         return view('internships/index', $data);
     }
+
+    public function show($internship){
+        $internship = \DB::table('internships')->where('id', $internship)->first();
+        dd($internship);
+    }
 }

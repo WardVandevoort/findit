@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
-
+use App\Http\Controllers\InternshipController;
 
 
 
@@ -21,7 +21,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/internships', 'InternshipController@index');
+Route::get('/internships', [InternshipController::class, 'index']);
+
+Route::get('/internships/{internship}', [InternshipController::class, 'show']);
 
 Route::get('/login', function () {
     return view('login');

@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internships</title>
+    <title>Companies</title>
 </head>
 
 <body>
-    <h1>Internships</h1>
+    <h1>Companies</h1>
 
-    @foreach( $internships as $internship )
-    <h3><a href="/internships/{{ $internship->id }}">{{ $internship->title }}</a></h3>
+    @foreach( $companies as $company )
+    <h3><a href="/companies/{{ $company->id }}">{{ $company->name }}</a></h3>
     @endforeach
 
 </body>

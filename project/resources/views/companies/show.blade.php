@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts/indexLayout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Companies</title>
-</head>
+@section('title')
+{{ $company->name }}
+@endsection
 
-<body>
+@section('content')
+     @component('components/alert')
+          @slot('type') danger @endslot
+          Something went wrong!
+     @endcomponent
 
     <h1>{{ $company->name }}</h1>
 
@@ -15,7 +16,4 @@
     @foreach( $company->internships as $internship )
     <div>{{ $internship->title }}</div>
     @endforeach
-
-</body>
-
-</html>
+@endsection

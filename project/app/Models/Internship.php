@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Internship extends Model
 {
     use HasFactory;
+
+    public function company(){
+        return $this->belongsTo('\App\Models\Company');
+    }
 }

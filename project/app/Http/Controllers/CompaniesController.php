@@ -12,7 +12,7 @@ class CompaniesController extends Controller
     }
 
     public function show($company){
-        $company = \DB::table('companies')->where('id', $company)->first();
-        dd($company);
+        $data['company'] = \App\Models\Company::where('id', $company)->with('internships')->first();
+        return view('companies/show', $data);
     }
 }

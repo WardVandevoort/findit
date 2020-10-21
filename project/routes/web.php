@@ -25,6 +25,8 @@ Route::get('/', function () {
 
 Route::get('/register', [UserController::class, 'register']);
 Route::post('/register', [UserController::class, 'handleRegister']);
+Route::get('/login', [UserController::class, 'login']);
+Route::post('/login', [UserController::class, 'handleLogin']);
 
 //Route INTERNSHIPS
 Route::get('/internships', [InternshipController::class, 'index']);

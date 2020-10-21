@@ -53,4 +53,16 @@ class UserController extends Controller
         );
 
     }
+
+    public function login(){
+        return view('users/login');
+    }
+
+    public function handleLogin(Request $request){
+        $credentials = $request->only(['email', 'password']);
+        if( \Auth::attempt($credentials) ){
+            return '/';
+        }
+        return view('users/login');
+    }
 }

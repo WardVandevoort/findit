@@ -22,7 +22,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/internships', [InternshipController::class, 'store']);
+
 Route::get('/internships', [InternshipController::class, 'index']);
+
+Route::get('/internships/create', [InternshipController::class, 'create']);
 
 Route::get('/internships/{internship}', [InternshipController::class, 'show']);
 
@@ -56,3 +60,5 @@ Route::get('/company', function () {
 Route::get('/companies', [CompaniesController::class, 'index']);
 
 Route::get('/companies/{company}', [CompaniesController::class, 'show']);
+
+

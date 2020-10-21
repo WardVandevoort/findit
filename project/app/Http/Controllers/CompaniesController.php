@@ -15,4 +15,5 @@ class CompaniesController extends Controller
         $data['company'] = \App\Models\Company::where('id', $company)->with('internships')->first();
         return view('companies/show', $data);
     }
+
 }

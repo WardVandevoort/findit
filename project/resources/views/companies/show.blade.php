@@ -1,4 +1,4 @@
-@extends('layouts/indexLayout')
+@extends('layouts/companyLayout')
 
 @section('title')
 {{ $company->name }}

@@ -12,7 +12,24 @@ class InternshipController extends Controller
     }
 
     public function show($internship){
-        $internship = \DB::table('internships')->where('id', $internship)->first();
-        dd($internship);
+        $data['internship'] = \App\Models\Internship::where('id', $internship)->first();
+        return view('internships/show', $data);
+    }
+
+    public function create(){
+        return view('internships/create');
+    }
+
+    public function store(Request $request){
+        $internship = new \App\Models\Internship();
+        $internship->title = $request->input('title');
+        $internship->bio = $request->input('bio');
+        $internship->req_skills = $request->input('req_skills');
+        $internship->start = $request->input('start');
+        $internship->end = $request->input('end');
+        $internship->company_id = '1';
+        $internship->save();
+
+        return redirect('/internships');
     }
 }

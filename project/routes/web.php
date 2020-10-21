@@ -22,14 +22,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('/register', [UserController::class, 'register']);
 Route::post('/register', [UserController::class, 'handleRegister']);
 Route::get('/login', [UserController::class, 'login']);
 Route::post('/login', [UserController::class, 'handleLogin']);
 
 //Route INTERNSHIPS
+Route::post('/internships', [InternshipController::class, 'store']);
+
 Route::get('/internships', [InternshipController::class, 'index']);
+Route::get('/internships/create/{company_id}', [InternshipController::class, 'create']);
 Route::get('/internships/{internship}', [InternshipController::class, 'show']);
 
 //Route STUDENTS
@@ -45,3 +47,5 @@ Route::get('/company', function () {
 });
 Route::get('/companies', [CompaniesController::class, 'index']);
 Route::get('/companies/{company}', [CompaniesController::class, 'show']);
+
+

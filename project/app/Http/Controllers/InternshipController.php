@@ -27,9 +27,9 @@ class InternshipController extends Controller
         $internship->req_skills = $request->input('req_skills');
         $internship->start = $request->input('start');
         $internship->end = $request->input('end');
-        $internship->company_id = '1';
+        $internship->company_id = $request->input('company_id');
         $internship->save();
 
-        return redirect('/internships');
+        return redirect('/companies');
     }
 }

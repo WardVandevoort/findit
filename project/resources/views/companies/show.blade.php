@@ -5,12 +5,10 @@
 @endsection
 
 @section('content')
-     @component('components/alert')
-          @slot('type') danger @endslot
-          Something went wrong!
-     @endcomponent
 
     <h1>{{ $company->name }}</h1>
+
+    <a class="btn btn-primary" href="/internships/create/{{ $company->id }}" >Create internship</a>
 
     <h2>Internships</h2>
     @foreach( $company->internships as $internship )

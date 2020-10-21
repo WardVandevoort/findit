@@ -36,7 +36,7 @@ Create internship
           <input type="text" class="form-control" id="end" name="end" placeholder="jjjj-mm-dd">
           </div>
 
-          <button type="submit" class="btn btn-primary">Create internship</button>
+          <button type="submit" class="btn btn-primary" name="company_id" value="{{request()->route('company_id')}}">Create internship</button>
 
      </form>
 @endsection

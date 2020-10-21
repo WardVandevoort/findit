@@ -26,7 +26,7 @@ Route::post('/internships', [InternshipController::class, 'store']);
 
 Route::get('/internships', [InternshipController::class, 'index']);
 
-Route::get('/internships/create', [InternshipController::class, 'create']);
+Route::get('/internships/create/{company_id}', [InternshipController::class, 'create']);
 
 Route::get('/internships/{internship}', [InternshipController::class, 'show']);
 

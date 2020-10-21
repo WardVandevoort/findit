@@ -35,6 +35,16 @@
                 </div>
               </div>
             </fieldset>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="firstname">Voornaam</label>
+                <input type="text" name="firstname" class="form-control" id="firstname">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="lastname">Achternaam</label>
+                <input type="text" name="lastname" class="form-control" id="lastname">
+              </div>
+            </div>
             <div class="form-group">
                 <label for="email">E-mailadres</label>
                 <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" value="{{ old('email') }}">

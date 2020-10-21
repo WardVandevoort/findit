@@ -14,12 +14,16 @@ class UserController extends Controller
 
     public function handleRegister(Request $request){
         $rules = [
+            'firstname' => 'required|min:2',
+            'lastname' => 'required|min:2',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:8',
             'password_confirmation' => 'required'
         ];
 
         $messages = [
+            'firstname.required' => 'Voornaam is vereist.',
+            'lastname.required' => 'Achternaam is vereist.',
             'email.required' => 'E-mailadres vereist.',
             'email.email' => 'Gelieve een geldig e-mailadres in te vullen.',
             'email.max' => 'E-mailadres mag niet boven de 255 karakters bevaten',
@@ -37,6 +41,8 @@ class UserController extends Controller
         $validation = $request->validate($rules,$messages);
 
         $user = new User();
+        $user->firstname = $request->input('firstname');
+        $user->lastname = $request->input('lastname');
         $user->email = $request->input('email');
         $user->password = \Hash::make($request->input('password'));
         $user->company_admin = $request->input('companyAdmin');

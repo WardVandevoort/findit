@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function register(){
+        if (Auth::check()) {
+            return redirect('/');
+        }
+        
         $userTypes = ['0' => 'student', '1' => 'werkgever'];
         return view('users/register')->with('userTypes', $userTypes);
     }

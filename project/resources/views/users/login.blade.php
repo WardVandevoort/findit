@@ -2,10 +2,6 @@
 
 @section('content')
     <form method="post" action="">
-        @auth
-            <div class="alert alert-info">We are logged in!</div>
-        @endauth
-        
         {{csrf_field()}}
         <h2>Log in</h2>
         <div class="form-group">

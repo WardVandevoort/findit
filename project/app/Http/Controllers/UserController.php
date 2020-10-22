@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -55,13 +56,17 @@ class UserController extends Controller
     }
 
     public function login(){
+        if (Auth::check()) {
+            return redirect('/');
+        }
+
         return view('users/login');
     }
 
     public function handleLogin(Request $request){
         $credentials = $request->only(['email', 'password']);
-        if( \Auth::attempt($credentials) ){
-            return '/';
+        if( Auth::attempt($credentials) ){
+            return redirect('/');
         }
         return view('users/login');
     }

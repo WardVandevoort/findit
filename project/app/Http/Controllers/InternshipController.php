@@ -6,21 +6,25 @@ use Illuminate\Http\Request;
 
 class InternshipController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $data['internships'] = \DB::table('internships')->get();
         return view('internships/index', $data);
     }
 
-    public function show($internship){
+    public function show($internship)
+    {
         $data['internship'] = \App\Models\Internship::where('id', $internship)->first();
         return view('internships/show', $data);
     }
 
-    public function create(){
+    public function create()
+    {
         return view('internships/create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $internship = new \App\Models\Internship();
         $internship->title = $request->input('title');
         $internship->bio = $request->input('bio');
@@ -31,5 +35,12 @@ class InternshipController extends Controller
         $internship->save();
 
         return redirect('/companies');
+    }
+
+    public function search(Request $request)
+    {
+        $search_text = $request->input('query');
+        $internships = \App\Models\Internship::where('title', 'LIKE', '%' . $search_text . '%')->get();
+        return view('internships.search')->with('internships', $internships);
     }
 }

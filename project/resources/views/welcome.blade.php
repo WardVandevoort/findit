@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts/app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <h1>hoi</h1>
-</body>
-
-</html>
+@section('content')
+<form class="form-group" action="">
+    <input class="form-control" type="search" placeholder="zoek stageplaats">
+    <button class="btn btn-primary" type="submit">Zoek</button>
+</form>
+@endsection

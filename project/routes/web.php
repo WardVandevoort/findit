@@ -33,7 +33,7 @@ Route::post('/internships', [InternshipController::class, 'store']);
 Route::get('/internships', [InternshipController::class, 'index']);
 Route::get('/internships/create/{company_id}', [InternshipController::class, 'create']);
 Route::get('/internships/{internship}', [InternshipController::class, 'show']);
-Route::get('/search', [InternshipController::class, 'search']);
+Route::get('/', [InternshipController::class, 'search']);
 
 //Route STUDENTS
 Route::get('/student', function () {

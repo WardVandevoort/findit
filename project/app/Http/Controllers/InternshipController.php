@@ -41,6 +41,6 @@ class InternshipController extends Controller
     {
         $search_text = $request->input('query');
         $internships = \App\Models\Internship::where('title', 'LIKE', '%' . $search_text . '%')->get();
-        return view('internships.search')->with('internships', $internships);
+        return view('welcome')->with('internships', $internships);
     }
 }

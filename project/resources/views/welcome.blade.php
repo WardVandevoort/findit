@@ -4,6 +4,7 @@
 @section('content')
 <div class="search-containter">
     <h1>Stageplaatsen</h1>
+    <p>{{$internships->count()}} stageplaats(en)</p>
     @foreach($internships as $internship)
     <div class="card-deck mb-3 text-center">
         <div class="card mb-4 shadow-sm">

@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts/indexLayout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+@section('title')
+Home
+@endsection
 
-<body>
-    <h1>hoi</h1>
-</body>
+@section('content')
+<h1>Home</h1>
 
-</html>
+<a class="btn btn-primary" href="/students" >Students</a>
+<a class="btn btn-primary" href="/internships" >Internships</a>
+<a class="btn btn-primary" href="/companies" >Companies</a>
+
+@endsection

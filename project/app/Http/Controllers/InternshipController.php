@@ -40,7 +40,7 @@ class InternshipController extends Controller
     public function search(Request $request)
     {
         $search_text = $request->input('query');
-        $internships = \App\Models\Internship::where('title', 'LIKE', '%' . $search_text . '%')->paginate(10);
+        $internships = \App\Models\Internship::where('title', 'LIKE', '%' . $search_text . '%')->get();
         return view('welcome')->with('internships', $internships);
     }
 }

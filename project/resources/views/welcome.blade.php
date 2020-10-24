@@ -4,7 +4,9 @@
 @section('content')
 <div class="search-containter">
     <h1>Stageplaatsen</h1>
-    <p>{{$internships->count()}} stageplaats(en)</p>
+    <p>{{$internships->count()}} Stageplaats(en)</p>
+    @if ($internships->total() > 0)
+
     @foreach($internships as $internship)
     <div class="card-deck mb-3 text-center">
         <div class="card mb-4 shadow-sm">
@@ -15,9 +17,16 @@
                 <p>{{ $internship->bio }}</p>
 
             </div>
+            @endforeach
 
         </div>
     </div>
-    @endforeach
+    <p></p>
+    <!-- 
+       page carousel (edit paginate in internshipcontroller{{ $internships->appends(request()->input())->links() }}-->
+    @else
+    <div>geen stageplaatsen beschikbaar</div>
+    @endif
+
 </div>
 @endsection

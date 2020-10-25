@@ -48,6 +48,7 @@ Route::get('/company', function () {
 
 
 Route::post('/companies', [CompaniesController::class, 'store']);
+Route::post('/companies/update', [CompaniesController::class, 'update']);
 
 
 Route::get('/companies', [CompaniesController::class, 'index']);

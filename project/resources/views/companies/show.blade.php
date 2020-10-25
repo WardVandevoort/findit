@@ -1,31 +1,63 @@
 @extends('layouts/companyLayout')
 
+
+
 @section('title')
 {{ $company->name }}
 @endsection
 
 @section('content')
-<form method="post" action="">
 
-     {{ csrf_field() }}
 
-    <h1><span class="admin">Name: </span>{{ $company->name }}</h1>
+     
+
+<h1><span class="admin">Name: </span>{{ $company->name }}</h1>
+    
+<a class="change" id="1" href="#" >Change name</a>
+
+<form class="hidden" id="form1" method="post" action="/companies/update">
+
+    {{ csrf_field() }}
+
     <div class="form-group">
-     <label for="name">Change name</label>
      <input type="text" class="form-control" id="name" name="name" placeholder="Your new company name">
     </div>
+    <a class="btn btn-danger" id="1" href="#" >Cancel</a>
+    <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
 
-    <h2><span class="admin">Slogan: </span>{{ $company->slogan }}</h2>
+</form>
+
+<h2><span class="admin">Slogan: </span>{{ $company->slogan }}</h2>
+
+<a class="change" id="2" href="#" >Change slogan</a>
+
+<form class="hidden" id="form2" method="post" action="/companies/update">
+
+    {{ csrf_field() }}
+
     <div class="form-group">
-     <label for="slogan">Change slogan</label>
      <input type="text" class="form-control" id="slogan" name="slogan" placeholder="Your new company slogan">
     </div>
+    <a class="btn btn-danger" id="2" href="#" >Cancel</a>
+    <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
 
-    <h3><span class="admin">Description: </span>{{ $company->description }}</h3>
+</form>
+
+<h3><span class="admin">Description: </span>{{ $company->description }}</h3>
+
+<a class="change" id="3" href="#" >Change description</a>
+
+<form class="hidden" id="form3" method="post" action="/companies/update">
+
+    {{ csrf_field() }}
+
     <div class="form-group">
-     <label for="bio">Change description</label>
-     <input type="text" class="form-control" id="bio" name="bio" placeholder="Your new company description">
+     <input type="text" class="form-control" id="description" name="description" placeholder="Your new company description">
     </div>
+    <a class="btn btn-danger" id="3" href="#" >Cancel</a>
+    <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
+
+</form>
 
     <div>
         <h3>Contact</h3>
@@ -34,8 +66,14 @@
             <li>Address: {{ $company->address }}</li>
             <li>City: {{ $company->city }}, {{ $company->postal_code }}</li>
             <li>Province: {{ $company->province }}</li>
+
+            <a class="change" id="4" href="#" >Change address</a>
+
+            <form class="hidden" id="form4" method="post" action="/companies/update">
+
+            {{ csrf_field() }}
+
             <div class="form-group">
-            <label for="address">Change address</label>
             <input type="text" class="form-control" id="address" name="address" placeholder="Your new company address">
             </div>
             <div class="form-group">
@@ -50,25 +88,45 @@
             <label for="province">Change province</label>
             <input type="text" class="form-control" id="province" name="province" placeholder="Your new company province">
             </div>
+            <a class="btn btn-danger" id="4" href="#" >Cancel</a>
+            <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
+
+            </form>
 
             <li>Phone: {{ $company->phone }}</li>
+
+            <a class="change" id="5" href="#" >Change phone number</a>
+
+            <form class="hidden" id="form5" method="post" action="/companies/update">
+
+            {{ csrf_field() }}
+
             <div class="form-group">
-            <label for="phone">Change phone number</label>
             <input type="text" class="form-control" id="phone" name="phone" placeholder="Your new company phone number">
             </div>
+            <a class="btn btn-danger" id="5" href="#" >Cancel</a>
+            <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
+
+            </form>
 
             <li>Email: {{ $company->email }}</li>
+
+            <a class="change" id="6" href="#" >Change email address</a>
+
+            <form class="hidden" id="form6" method="post" action="/companies/update">
+
+            {{ csrf_field() }}
+
             <div class="form-group">
-            <label for="email">Change email address</label>
             <input type="text" class="form-control" id="email" name="email" placeholder="Your new company email address">
             </div>
+            <a class="btn btn-danger" id="6" href="#" >Cancel</a>
+            <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
+
+            </form>
 
         </ul>
     </div>
-
-    <button type="submit" class="btn btn-primary">Update company profile</button>
-
-</form>
 
     <a class="btn btn-primary" href="/internships/create/{{ $company->id }}" >Create internship</a>
 
@@ -76,4 +134,6 @@
     @foreach( $company->internships as $internship )
     <div>{{ $internship->title }}</div>
     @endforeach
+
+    
 @endsection

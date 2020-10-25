@@ -124,4 +124,55 @@ class CompaniesController extends Controller
     
     }
 
+    public function update(Request $request){
+        $company_id = $request->input('company_id');
+        $name = $request->input('name');
+        $slogan = $request->input('slogan');
+        $description = $request->input('description');
+        $address = $request->input('address');
+        $city = $request->input('city');
+        $postal_code = $request->input('postal_code');
+        $province = $request->input('province');
+        $phone = $request->input('phone');
+        $email = $request->input('email');
+        $switch;
+
+        if($name != null && $name != ' '){
+            $data = \App\Models\Company::where('id', $company_id)->update(['name' => $name]);
+            return redirect('/companies/' . $company_id);
+        }
+        else if($slogan != null && $slogan != ' '){
+            $data = \App\Models\Company::where('id', $company_id)->update(['slogan' => $slogan]);
+            return redirect('/companies/' . $company_id);
+        }
+        else if($description != null && $description != ' '){
+            $data = \App\Models\Company::where('id', $company_id)->update(['description' => $description]);
+            return redirect('/companies/' . $company_id);
+        }
+        else if($address != null && $address != ' ' && 
+        $city != null && $city != ' ' && 
+        $postal_code != null && $postal_code != ' ' && 
+        $province != null && $province != ' '){
+            $data = \App\Models\Company::where('id', $company_id)->update(
+            ['address' => $address,
+            'city' => $city,
+            'postal_code' => $postal_code,
+            'province' => $province]);
+            return redirect('/companies/' . $company_id);
+        }
+        else if($phone != null && $phone != ' '){
+            $data = \App\Models\Company::where('id', $company_id)->update(['phone' => $phone]);
+            return redirect('/companies/' . $company_id);
+        }
+        else if($email != null && $email != ' ' && strrpos($email, '@') != false && (strrpos($email, '.com') != false || strrpos($email, '.be') != false)){
+            $data = \App\Models\Company::where('id', $company_id)->update(['email' => $email]);
+            return redirect('/companies/' . $company_id);
+        }
+        else{
+            return redirect('/companies/' . $company_id);
+        }
+
+        
+    }
+
 }

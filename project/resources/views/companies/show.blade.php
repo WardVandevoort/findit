@@ -9,10 +9,10 @@
 @section('content')
 
 
-     
+
 
 <h1><span class="admin">Name: </span>{{ $company->name }}</h1>
-    
+
 <a class="change" id="1" href="#" >Change name</a>
 
 <form class="hidden" id="form1" method="post" action="/companies/update">
@@ -134,6 +134,21 @@
     @foreach( $company->internships as $internship )
     <div>{{ $internship->title }}</div>
     @endforeach
+    <p>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#nearestStations" aria-expanded="false" aria-controls="collapseExample">
+            Nearest stations
+            </button>
+    </p>
+    <div class="collapse" id="nearestStations">
+        <div class="card card-body">
+            <ul class="list-group list-group-flush">
+                @foreach( $stations as $station)
+                        @if ($station['distance'] < 10500)
+                            <li class="list-group-item"> {{ $station['title']}}</li>
+                    @endif
+                @endforeach
+            </ul>
+        </div>
+    </div>
 
-    
 @endsection

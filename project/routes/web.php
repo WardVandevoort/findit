@@ -46,5 +46,8 @@ Route::get('/students/{student}', [StudentsController::class, 'show']);
 Route::get('/company', function () {
     return view('company');
 });
+Route::post('/companies', [CompaniesController::class, 'store']);
+Route::post('/companies/update', [CompaniesController::class, 'update']);
+Route::get('/companies/create', [CompaniesController::class, 'create']);
 Route::get('/companies', [CompaniesController::class, 'index']);
 Route::get('/companies/{company}', [CompaniesController::class, 'show']);

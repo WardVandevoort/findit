@@ -46,6 +46,7 @@ Route::get('/students/{student}', [StudentsController::class, 'show']);
 Route::get('/company', function () {
     return view('company');
 });
+<<<<<<< HEAD
 
 
 Route::post('/companies', [CompaniesController::class, 'store']);
@@ -55,3 +56,12 @@ Route::post('/companies/update', [CompaniesController::class, 'update']);
 Route::get('/companies', [CompaniesController::class, 'index']);
 Route::get('/companies/create', [CompaniesController::class, 'create']);
 Route::get('/companies/{company}', [CompaniesController::class, 'show']);
+||||||| d10cfb6
+Route::get('/companies', [CompaniesController::class, 'index']);
+Route::get('/companies/{company}', [CompaniesController::class, 'show']);
+
+
+=======
+Route::get('/companies', [CompaniesController::class, 'index']);
+Route::get('/companies/{company}', [CompaniesController::class, 'show']);
+>>>>>>> 7994d7e4daf7fda6d4ba6495f102d43381f321ca

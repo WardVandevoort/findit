@@ -14,7 +14,34 @@ class CompaniesController extends Controller
 
     public function show($company){
         $data['company'] = \App\Models\Company::where('id', $company)->with('internships')->first();
-        return view('companies/show', $data);
+
+        /*--------------------------------Guzzle-API------------------------------------*/
+         //get the current company address
+         $get_companyAdress = \DB::select("SELECT city,address FROM companies WHERE id = $company");
+         $companyAdress = $get_companyAdress[0]->address;
+         $companycity = $get_companyAdress[0]->city;
+        //get the API key from the .env file
+        $localiq_Api_Key=env('LOCATIONIQ_API_KEY');
+        //API request url
+        $url_Locationiq = "https://api.locationiq.com/v1/autocomplete.php?key=$localiq_Api_Key&q=$companyAdress";
+
+        // get the Long & Lat of address
+        $getLocation = Http::get($url_Locationiq)->json();
+        $lat =$getLocation['0']['lat'];
+        $lon =$getLocation['0']['lon'];
+
+        //get api key from the .env file
+        $here_Api_Key = env('HERE_API_KEY');
+        $url_Hereapi ="https://discover.search.hereapi.com/v1/discover?at=$lat,$lon&cat=railway-station&q=railway+station&limit=5&apiKey=$here_Api_Key";
+
+        $get_stations=Http::get($url_Hereapi)->json();
+
+
+        $stations['stations']= $get_stations['items'];
+        //dd($stations);
+        /*-------------------------------End-Guzzle-API------------------------------------*/
+
+        return view('companies/show', $data,$stations);
     }
 
     public function create(){
@@ -53,12 +80,12 @@ class CompaniesController extends Controller
             else{
                 $company->save();
                 $data = \App\Models\Company::where('name', $name)->where('city', $city)->first();
-    
+
                 return redirect('/companies/' . $data['id']);
             }
-            
-           
-            
+
+
+
         }
         else{
             $response = $response['items'][0];
@@ -119,9 +146,9 @@ class CompaniesController extends Controller
 
                 return redirect('/companies/' . $data['id']);
             }
-            
+
         }
-    
+
     }
 
     public function update(Request $request){
@@ -149,9 +176,9 @@ class CompaniesController extends Controller
             $data = \App\Models\Company::where('id', $company_id)->update(['description' => $description]);
             return redirect('/companies/' . $company_id);
         }
-        else if($address != null && $address != ' ' && 
-        $city != null && $city != ' ' && 
-        $postal_code != null && $postal_code != ' ' && 
+        else if($address != null && $address != ' ' &&
+        $city != null && $city != ' ' &&
+        $postal_code != null && $postal_code != ' ' &&
         $province != null && $province != ' '){
             $data = \App\Models\Company::where('id', $company_id)->update(
             ['address' => $address,
@@ -172,7 +199,7 @@ class CompaniesController extends Controller
             return redirect('/companies/' . $company_id);
         }
 
-        
+
     }
 
 }

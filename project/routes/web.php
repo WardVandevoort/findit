@@ -24,8 +24,11 @@ Route::get('/', function () {
 
 Route::get('/register', [UserController::class, 'register']);
 Route::post('/register', [UserController::class, 'handleRegister']);
-Route::get('/login', [UserController::class, 'login']);
+Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/login', [UserController::class, 'handleLogin']);
+
+Route::get('/user/profile', [UserController::class, 'profile'])->middleware('auth');
+Route::post('/user/profile', [UserController::class, 'update']);
 
 //Route INTERNSHIPS
 Route::post('/internships', [InternshipController::class, 'store']);

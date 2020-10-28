@@ -74,4 +74,28 @@ class UserController extends Controller
         }
         return view('users/login');
     }
+
+    public function profile(){
+        $user = Auth::user();
+        return view('users/profile')->with('user', $user);
+    }
+
+    public function update(Request $request){
+        $user = Auth::user();
+        $user->firstname = $request->input('firstname');
+        $user->lastname = $request->input('lastname');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->date_of_birth = $request->input('dateOfBirth');
+        $user->gender = $request->input('gender');
+        $user->address = $request->input('address');
+        $user->city = $request->input('city');
+        $user->province = $request->input('province');
+        $user->postal_code = $request->input('postal_code');
+        $user->save();
+
+        $request->session()->flash('message', 'Profiel geupdate!');
+
+        return redirect('/user/profile');
+    }
 }

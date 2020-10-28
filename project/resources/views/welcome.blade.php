@@ -1,8 +1,23 @@
-@extends('layouts/app')
 @extends('layouts/homeLayout')
 
+@section('title')
+Home
+@endsection
 
 @section('content')
+@component('components/nav')
+
+<a class="nav-link" href="/students">Students</a>
+<a class="nav-link" href="/internships">Internships</a>
+<a class="nav-link" href="/companies">Companies</a>
+
+@endcomponent
+
+<form class="form-group" type="get" action="{{url('/')}}">
+    <input class="form-control" name="query" type="search" placeholder="zoek stageplaats" value="{{request()->input('query')}}">
+    <button class="btn btn-primary" type="submit">Zoek</button>
+</form>
+
 <div class="search-containter">
     <h1>Stageplaatsen</h1>
     <p>{{$internships->count()}} Stageplaats(en)</p>
@@ -17,9 +32,6 @@
             <div class="card-body">
                 <p>{{ $internship->bio }}</p>
 
-                <a class="btn btn-primary" href="/students">Students</a>
-                <a class="btn btn-primary" href="/internships">Internships</a>
-                <a class="btn btn-primary" href="/companies">Companies</a>
             </div>
         </div>
     </div>

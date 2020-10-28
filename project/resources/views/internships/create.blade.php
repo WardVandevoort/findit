@@ -5,6 +5,13 @@ Create internship
 @endsection
 
 @section('content')
+
+@component('components/nav')
+
+<a class="nav-link" href="/companies/{{request()->route('company_id')}}">Back</a>
+
+@endcomponent
+
     <h1>Create new internship</h1>
 
      <form method="post" action="/internships">

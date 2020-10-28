@@ -1,14 +1,16 @@
 @extends('layouts/companyLayout')
 
-
-
 @section('title')
 {{ $company->name }}
 @endsection
 
 @section('content')
 
+@component('components/nav')
 
+<a class="nav-link" href="/companies">Back</a>
+
+@endcomponent
 
 
 <h1><span class="admin">Name: </span>{{ $company->name }}</h1>

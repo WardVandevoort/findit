@@ -5,6 +5,13 @@ Create company
 @endsection
 
 @section('content')
+
+@component('components/nav')
+
+<a class="nav-link" href="/companies">Back</a>
+
+@endcomponent
+
     <h1>Create company</h1>
 
     <form method="post" action="/companies">

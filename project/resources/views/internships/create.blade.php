@@ -1,16 +1,14 @@
-@extends('layouts/indexLayout')
+@extends('layouts/app')
 
-@section('title')
-Create internship
+@section('title', 'Voeg een stage')
+
+@section('nav')
+    <li class="nav-item">
+          <a class="nav-link" href="/companies/{{request()->route('company_id')}}">Back</a>
+    </li>
 @endsection
 
 @section('content')
-
-@component('components/nav')
-
-<a class="nav-link" href="/companies/{{request()->route('company_id')}}">Back</a>
-
-@endcomponent
 
     <h1>Create new internship</h1>
 

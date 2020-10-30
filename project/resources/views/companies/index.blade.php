@@ -1,18 +1,20 @@
-@extends('layouts/indexLayout')
+@extends('layouts/app')
 
-@section('title')
-Companies
+@section('title', 'Bedrijven')
+
+@section('nav')
+    <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/students">Studenten</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/internships">Stages</a>
+    </li>
 @endsection
 
 @section('content')
-
-@component('components/nav')
-
-<a class="nav-link" href="/">Home</a>
-<a class="nav-link" href="/students">Students</a>
-<a class="nav-link" href="/internships">internships</a>
-
-@endcomponent
 
     <h1>Companies</h1>
 

@@ -1,16 +1,14 @@
-@extends('layouts/internshipLayout')
+@extends('layouts/app')
 
-@section('title')
-{{ $internship->title }}
+@section('title', $internship->title)
+
+@section('nav')
+    <li class="nav-item">
+        <a class="nav-link" href="/internships">Back</a>
+    </li>
 @endsection
 
 @section('content')
-
-@component('components/nav')
-
-<a class="nav-link" href="/internships">Back</a>
-
-@endcomponent
 
     <h1>{{ $internship->title }}</h1>
 

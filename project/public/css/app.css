@@ -10916,11 +10916,11 @@ a.text-dark:focus {
   display: none;
 }
 
-a {
+h3 a {
   margin-bottom: 20px;
 }
 
-.nav {
+.navbar {
   background-color: #227DC7;
 }
 

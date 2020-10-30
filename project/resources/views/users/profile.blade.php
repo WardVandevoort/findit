@@ -1,6 +1,21 @@
 @extends('layouts/app')
 
-@section('title', 'Profiel aanpassen')
+@section('title', 'Profiel')
+
+@section('nav')
+    <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/students">Studenten</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/internships">Stages</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/companies">Bedrijven</a>
+    </li>
+@endsection
 
 @section('content')
   <div class="row">

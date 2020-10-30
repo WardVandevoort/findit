@@ -1,17 +1,20 @@
-@extends('layouts/homeLayout')
+@extends('layouts/app')
 
-@section('title')
-Home
+@section('title', 'Home')
+
+@section('nav')
+    <li class="nav-item">
+        <a class="nav-link" href="/students">Studenten</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/internships">Stages</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/companies">Bedrijven</a>
+    </li>
 @endsection
 
 @section('content')
-@component('components/nav')
-
-<a class="nav-link" href="/students">Students</a>
-<a class="nav-link" href="/internships">Internships</a>
-<a class="nav-link" href="/companies">Companies</a>
-
-@endcomponent
 
 <form class="form-group" type="get" action="{{url('/')}}">
     <input class="form-control" name="query" type="search" placeholder="zoek stageplaats" value="{{request()->input('query')}}">

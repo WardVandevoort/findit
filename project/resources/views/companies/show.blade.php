@@ -1,17 +1,14 @@
-@extends('layouts/companyLayout')
+@extends('layouts/app')
 
-@section('title')
-{{ $company->name }}
+@section('title', $company->name)
+
+@section('nav')
+    <li class="nav-item">
+        <a class="nav-link" href="/companies">Back</a>
+    </li>
 @endsection
 
 @section('content')
-
-@component('components/nav')
-
-<a class="nav-link" href="/companies">Back</a>
-
-@endcomponent
-
 
 <h1><span class="admin">Name: </span>{{ $company->name }}</h1>
 

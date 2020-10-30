@@ -1,16 +1,14 @@
-@extends('layouts/indexLayout')
+@extends('layouts/app')
 
-@section('title')
-Create company
+@section('title', 'Creëer een bedrijf')
+
+@section('nav')
+    <li class="nav-item">
+        <a class="nav-link" href="/companies">Back</a>
+    </li>
 @endsection
 
 @section('content')
-
-@component('components/nav')
-
-<a class="nav-link" href="/companies">Back</a>
-
-@endcomponent
 
     <h1>Create company</h1>
 

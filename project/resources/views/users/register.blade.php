@@ -2,6 +2,21 @@
 
 @section('title', 'Registreren')
 
+@section('nav')
+    <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/students">Studenten</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/internships">Stages</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/companies">Bedrijven</a>
+    </li>
+@endsection
+
 @section('content')
 
     <form action="" method="post">

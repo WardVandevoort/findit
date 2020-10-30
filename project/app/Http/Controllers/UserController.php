@@ -123,4 +123,9 @@ class UserController extends Controller
         $request->session()->flash('message', 'Skill toegevoegd!');
         return redirect('/user/profile');
     }
+
+    public function logout(){
+        Auth::logout();
+        return redirect('/');
+    }
 }

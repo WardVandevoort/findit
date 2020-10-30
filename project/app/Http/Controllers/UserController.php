@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -73,5 +74,53 @@ class UserController extends Controller
             return redirect('/');
         }
         return view('users/login');
+    }
+
+    public function profile(){
+        $data['user'] = User::find(Auth::id());
+        $data['skills'] = DB::table('skills')->where('active', '=', 1)->get();
+        return view('users/profile', $data);
+    }
+
+    public function update(Request $request){
+        $user = Auth::user();
+        $user->firstname = $request->input('firstname');
+        $user->lastname = $request->input('lastname');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->date_of_birth = $request->input('dateOfBirth');
+        $user->gender = $request->input('gender');
+        $user->address = $request->input('address');
+        $user->city = $request->input('city');
+        $user->province = $request->input('province');
+        $user->postal_code = $request->input('postal_code');
+        $user->save();
+
+        $request->session()->flash('message', 'Profiel geupdate!');
+
+        return redirect('/user/profile');
+    }
+
+    public function addSkills(Request $request){
+        $rules = [
+            'skills' => 'required',
+            'progress' => 'gt:0',
+        ];
+
+        $messages = [
+            'skills.required' => 'Skill naam is vereist.',
+            'progress.gt' => 'Je skill moet vooruitgang hebben.',
+        ];
+
+        $validation = $request->validate($rules,$messages);
+
+        $user = Auth::user();
+        $skillId = $request->input('skills');
+        $progress = $request->input('progress');
+        $description = $request->input('description');
+        
+        $user->skills()->attach($skillId, ['progress' => $progress], ['description' => $description]);
+        $request->session()->flash('message', 'Skill toegevoegd!');
+        return redirect('/user/profile');
     }
 }

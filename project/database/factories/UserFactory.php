@@ -31,6 +31,10 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'phone' => $this->faker->phoneNumber,
             'password' => bcrypt('12345'),
+            'address' => $this->faker->streetAddress,
+            'city' => $this->faker->city,
+            'postal_code' => $this->faker->postcode,
+            'province' => $this->faker->state,
             'date_of_birth' => $this->faker->date($format = 'Y-m-d', $max = 'now', $min = '1900'),
             'gender' => $gender,
         ];

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -76,8 +77,9 @@ class UserController extends Controller
     }
 
     public function profile(){
-        $user = Auth::user();
-        return view('users/profile')->with('user', $user);
+        $data['user'] = User::find(Auth::id());
+        $data['skills'] = DB::table('skills')->where('active', '=', 1)->get();
+        return view('users/profile', $data);
     }
 
     public function update(Request $request){
@@ -96,6 +98,29 @@ class UserController extends Controller
 
         $request->session()->flash('message', 'Profiel geupdate!');
 
+        return redirect('/user/profile');
+    }
+
+    public function addSkills(Request $request){
+        $rules = [
+            'skills' => 'required',
+            'progress' => 'gt:0',
+        ];
+
+        $messages = [
+            'skills.required' => 'Skill naam is vereist.',
+            'progress.gt' => 'Je skill moet vooruitgang hebben.',
+        ];
+
+        $validation = $request->validate($rules,$messages);
+
+        $user = Auth::user();
+        $skillId = $request->input('skills');
+        $progress = $request->input('progress');
+        $description = $request->input('description');
+        
+        $user->skills()->attach($skillId, ['progress' => $progress], ['description' => $description]);
+        $request->session()->flash('message', 'Skill toegevoegd!');
         return redirect('/user/profile');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -63,6 +64,8 @@ class UsersSeeder extends Seeder
         $madina->save();
 
         //Generate 10 other users
-        User::factory()->count(10)->create();
+        User::factory()->count(10)->create()->each(function($user){
+            $user->skills()->attach(Skill::all()->random()->id, ['progress' => rand(0,100)]);
+        });
     }
 }

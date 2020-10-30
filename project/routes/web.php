@@ -29,6 +29,7 @@ Route::post('/login', [UserController::class, 'handleLogin']);
 
 Route::get('/user/profile', [UserController::class, 'profile'])->middleware('auth');
 Route::post('/user/profile', [UserController::class, 'update']);
+Route::post('/user/profile/addSkills', [UserController::class, 'addSkills']);
 
 //Route INTERNSHIPS
 Route::post('/internships', [InternshipController::class, 'store']);

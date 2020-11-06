@@ -35,6 +35,20 @@ class ApplicationController extends Controller
 
     public function store(Request $request)
     {
+
+
+        $rules = [
+            'motivation' => 'required|min:20',
+        ];
+
+        $messages = [
+            'motivation.required' => 'Motivatie is vereist.',
+            'motivation.min' => 'Voer een motivatie in met minstens 20 karakters.',
+        ];
+
+        $validation = $request->validate($rules, $messages);
+
+
         $application = new Application();
         $application->motivation = $request->input('motivation');
         $application->user_id = Auth::user()->id;

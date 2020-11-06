@@ -23,7 +23,16 @@
 
     {{ csrf_field() }}
 
-
+    @if( $errors->any() )
+    @component('components/alert')
+    @slot('type', 'danger')
+    <ul>
+        @foreach($errors->all() as $e)
+        <li>{{ $e }}</li>
+        @endforeach
+    </ul>
+    @endcomponent
+    @endif
 
     <div class="form-group">
         <label for="city">Motivatie</label>

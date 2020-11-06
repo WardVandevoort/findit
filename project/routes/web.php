@@ -5,6 +5,7 @@ use App\Http\Controllers\InternshipController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ApplicationController;
 
 
 /*
@@ -39,6 +40,14 @@ Route::get('/internships', [InternshipController::class, 'index']);
 Route::get('/internships/create/{company_id}', [InternshipController::class, 'create']);
 Route::get('/internships/{internship}', [InternshipController::class, 'show']);
 Route::get('/', [InternshipController::class, 'search']);
+
+//Route APPLICAITONS
+Route::get('/applications', [ApplicationController::class, 'index']);
+Route::get('/applications/{internship}', [ApplicationController::class, 'show']);
+Route::get('/applications/create/{internship}', [ApplicationController::class, 'create']);
+Route::post('/applications/{internship}', [ApplicationController::class, 'store']);
+
+
 
 //Route STUDENTS
 Route::get('/student', function () {

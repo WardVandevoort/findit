@@ -22,6 +22,12 @@
     <form action="" method="post">
         {{csrf_field()}}
         
+        @if( $flash = session('error'))
+          @component('components/alert')
+            @slot('type', 'danger')
+              {{ $flash }}
+          @endcomponent
+        @endif
         @if( $errors->any() )
           @component('components/alert')
             @slot('type', 'danger')
@@ -74,5 +80,6 @@
             </div>
             <button type="submit" class="btn btn-primary">Registreren</button>
         </form>
-
+        <hr>
+        <a href="/login/linkedin" class="btn btn-linkedin"><i class="fa fa-linkedin"></i> Log in met Linkedin</a>
 @endsection

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-
+use function PHPUnit\Framework\returnSelf;
 
 class ApplicationController extends Controller
 {
@@ -52,9 +52,8 @@ class ApplicationController extends Controller
         $application = new Application();
         $application->motivation = $request->input('motivation');
         $application->user_id = Auth::user()->id;
-        $application->internship_id = \Request::segment(2);
+        $application->internship_id = \Request::segment(3);
         $application->save();
-
-        return redirect('/applications');
+        $request->session()->flash('message', 'Proficiat, u heeft gesolliciteerd!');
     }
 }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
 {
@@ -74,6 +76,40 @@ class UserController extends Controller
             return redirect('/');
         }
         return view('users/login');
+    }
+
+    public function redirectToProviderLinkedin()
+    {
+        return Socialite::driver('linkedin')->redirect();
+    }
+
+    public function handleProviderLinkedinCallback(Request $request)
+    {
+        try{
+            $user = Socialite::driver('linkedin')->user();
+            $userExist = User::where('email',$user->email)->first();
+            if($userExist)
+            {
+                Auth::loginUsingId($userExist->id);
+            }
+            else
+            {
+                $newUser = new User;
+                $newUser->firstname = $user->first_name;
+                $newUser->lastname = $user->last_name;
+                $newUser->email = $user->email;
+                $newUser->linkedin_id = $user->id;
+                $newUser->password = bcrypt(rand(1,10000));
+                $newUser->save();
+                Auth::loginUsingId($newUser->id);
+            }
+            return redirect('/');
+        }catch(Exception $e)
+        {
+            $request->session()->flash('error', $request->input('error_description'));
+
+            return redirect('/login');
+        }
     }
 
     public function profile(){

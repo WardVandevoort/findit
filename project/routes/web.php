@@ -26,6 +26,8 @@ Route::get('/', function () {
 Route::get('/register', [UserController::class, 'register']);
 Route::post('/register', [UserController::class, 'handleRegister']);
 Route::get('/login', [UserController::class, 'login'])->name('login');
+Route::get('/login/linkedin', [UserController::class, 'redirectToProviderLinkedin']);
+Route::get('/login/linkedin/callback', [UserController::class, 'handleProviderLinkedinCallback']);
 Route::post('/login', [UserController::class, 'handleLogin']);
 Route::get('/logout', [UserController::class, 'logout']);
 

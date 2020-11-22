@@ -18,6 +18,12 @@
 @endsection
 
 @section('content')
+    @if( $flash = session('error'))
+        @component('components/alert')
+          @slot('type', 'danger')
+            {{ $flash }}
+        @endcomponent
+    @endif
     <form method="post" action="">
         {{csrf_field()}}
         <h2>Log in</h2>
@@ -35,4 +41,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Log in</button>
     </form>
+    <hr>
+    <a href="/login/linkedin" class="btn btn-linkedin"><i class="fa fa-linkedin"></i> Log in met Linkedin</a>
 @endsection

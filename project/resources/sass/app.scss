@@ -1,5 +1,6 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
 // Variables
 @import 'variables';
@@ -26,4 +27,18 @@ h3 a {
 
 .navbar {
      background-color: #227DC7;
+}
+
+.btn-linkedin
+{
+     background-color: #0077B5;
+     color: #ffffff;
+}
+
+.btn-linkedin i
+{
+     font-size: 1.4em;
+     border-right: 1px inset #0000001f;
+     padding-right: 0.35em;
+     margin-right: 0.35em;
 }

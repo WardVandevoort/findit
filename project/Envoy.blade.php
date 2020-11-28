@@ -1,4 +1,4 @@
-@servers(['production' => 'findit@172.105.73.78 -p22000', 'dev' => 'findit@172.105.73.78 -p22000'])
+@servers(['production' => 'findit@172.105.73.78', 'dev' => 'findit@172.105.73.78'])
 
 @task('deploy-production', ['on' => 'production'])
 cd /home/findit/app/findit/project

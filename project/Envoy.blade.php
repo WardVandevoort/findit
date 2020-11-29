@@ -1,7 +1,7 @@
-@servers(['production' => 'findit@172.105.73.78', 'dev' => 'findit@172.105.73.78'])
+@servers(['production' => '-A deploybot@172.105.73.78', 'dev' => '-A deploybot@172.105.73.78'])
 
 @task('deploy-production', ['on' => 'production'])
-cd /home/findit/app/findit/project
+cd /home/deploybot/app/findit/project
 php artisan down
 git reset --hard HEAD
 git pull origin master
@@ -11,7 +11,7 @@ php artisan up
 @endtask
 
 @task('deploy-dev', ['on' => 'dev'])
-cd /home/findit/app/findit/project
+cd /home/deploybot/beta-app/findit/project
 php artisan down
 git reset --hard HEAD
 git pull origin master

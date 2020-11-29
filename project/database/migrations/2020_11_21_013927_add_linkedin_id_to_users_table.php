@@ -14,7 +14,7 @@ class AddLinkedinIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('linkedin_id');
+            $table->string('linkedin_id')->nullable();
         });
     }
 

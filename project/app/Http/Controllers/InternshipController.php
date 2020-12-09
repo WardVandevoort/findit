@@ -8,7 +8,7 @@ class InternshipController extends Controller
 {
     public function index()
     {
-        $data['internships'] = \DB::table('internships')->get();
+        $data['internships'] = \App\Models\Internship::all();
         return view('internships/index', $data);
     }
 

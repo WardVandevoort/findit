@@ -17,8 +17,8 @@ class CreateInternshipsTable extends Migration
             $table->id();
             $table->string('title'); //PHP-developer etc.
             $table->text('bio');
-            $table->date('start'); //Start of stage
-            $table->date('end');    //End of stage
+            $table->date('start'); //Start of internship
+            $table->date('end');    //End of internship
             $table->text('req_skills');
             $table->integer('company_id');
             $table->timestamps();

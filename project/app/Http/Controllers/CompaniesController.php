@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 class CompaniesController extends Controller
 {
     public function index(){
-        $data['companies'] = \DB::table('companies')->get();
+        $data['companies'] = \App\Models\Company::all();
         return view('companies/index', $data);
     }
 
@@ -16,14 +16,13 @@ class CompaniesController extends Controller
         $data['company'] = \App\Models\Company::where('id', $company)->with('internships')->first();
 
         /*--------------------------------Guzzle-API------------------------------------*/
-         //get the current company address
-         $get_companyAdress = \DB::select("SELECT city,address FROM companies WHERE id = $company");
-         $companyAdress = $get_companyAdress[0]->address;
-         $companycity = $get_companyAdress[0]->city;
+        //get the current company address
+        $companyAddress = $data['company']['address'];
+        $companycity = $data['company']['city'];
         //get the API key from the .env file
         $localiq_Api_Key=env('LOCATIONIQ_API_KEY');
         //API request url
-        $url_Locationiq = "https://api.locationiq.com/v1/autocomplete.php?key=$localiq_Api_Key&q=$companyAdress";
+        $url_Locationiq = "https://api.locationiq.com/v1/autocomplete.php?key=$localiq_Api_Key&q=$companyAddress";
 
         // get the Long & Lat of address
         $getLocation = Http::get($url_Locationiq)->json();
@@ -57,9 +56,8 @@ class CompaniesController extends Controller
         $postalCode;
         $province;
         $company = new \App\Models\Company();
-        $apiKey = "7ojNfkml0g9ZeF401eY0tS4GHy1Eor0_JSOVfrXVG50";
-
-        $url = "https://discover.search.hereapi.com/v1/discover?at=51.030136,4.488213&limit=1&q=$name . $city&apiKey=$apiKey";
+        $here_Api_Key = env('HERE_API_KEY');
+        $url = "https://discover.search.hereapi.com/v1/discover?at=51.030136,4.488213&limit=1&q=$name . $city&apiKey=$here_Api_Key";
         $response = Http::get($url)->json();
         if(empty($response['items'])){
             $company->name = $name;

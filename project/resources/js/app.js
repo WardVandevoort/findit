@@ -31,3 +31,18 @@ btns.forEach((btn) => {
      form.classList.add("hidden");
 })
 });
+
+
+
+/*---------Nearest-Station-Card------------*/
+
+var scoreErrmsg = document.querySelector(".scoreErrmsg");
+
+if (scoreErrmsg.innerHTML.length == 8) {
+    document.querySelector(".scoreErrmsg").style.display = "none";
+} else {
+    document.querySelector(".scoreErrmsg").style.display = "block";
+}
+/*--------End-Nearest-Station-Card------------*/
+
+

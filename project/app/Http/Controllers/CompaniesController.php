@@ -31,7 +31,7 @@ class CompaniesController extends Controller
 
         //get api key from the .env file
         $here_Api_Key = env('HERE_API_KEY');
-        $url_Hereapi ="https://discover.search.hereapi.com/v1/discover?at=$lat,$lon&cat=railway-station&q=railway+station&limit=5&apiKey=$here_Api_Key";
+        $url_Hereapi ="https://discover.search.hereapi.com/v1/discover?at=$lat,$lon&cat=railway-station&q=railway+station&limit=1&language=fr&apiKey=$here_Api_Key";
 
         $get_stations=Http::get($url_Hereapi)->json();
 
@@ -39,8 +39,33 @@ class CompaniesController extends Controller
         $stations['stations']= $get_stations['items'];
         //dd($stations);
         /*-------------------------------End-Guzzle-API------------------------------------*/
+         $url_mobiscore ="https://mobiscore.omgeving.vlaanderen.be/ajax/get-score?lat=$lat&lon=$lon";
+        $get_score=Http::get($url_mobiscore)->json();
 
-        return view('companies/show', $data,$stations);
+        if($get_score['status'] != "ok"){
+            $stations= $get_stations['items'] ;
+            $roundedScore = ' ';
+            $errormsg = 'No score is available for this address';
+            return view('companies/show', $data,compact('stations','errormsg'));
+        }else{
+        $onlyScore= $get_score['score']['scores']['totaal'];
+         $scores= $get_score['score']['scores'];
+
+        $roundedScore = round($onlyScore,1);
+
+
+        $stations= $get_stations['items'] ;
+        //dd($stations);
+        return view('companies/show', $data,compact('scores','stations','roundedScore'));
+        }
+
+
+
+
+
+
+
+        //return view('companies/show', $data,$stations);
     }
 
     public function create(){

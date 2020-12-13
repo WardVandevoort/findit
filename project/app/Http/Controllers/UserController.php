@@ -15,7 +15,7 @@ class UserController extends Controller
         if (Auth::check()) {
             return redirect('/');
         }
-        
+
         $userTypes = ['0' => 'student', '1' => 'werkgever'];
         return view('users/register')->with('userTypes', $userTypes);
     }
@@ -115,7 +115,15 @@ class UserController extends Controller
     public function profile(){
         $data['user'] = User::find(Auth::id());
         $data['skills'] = DB::table('skills')->where('active', '=', 1)->get();
-        return view('users/profile', $data);
+
+
+        if($data['user']->company_admin == 1){
+            return view('companies/profile', $data);
+        }else{
+            return view('users/profile', $data);
+        }
+
+
     }
 
     public function update(Request $request){
@@ -154,7 +162,7 @@ class UserController extends Controller
         $skillId = $request->input('skills');
         $progress = $request->input('progress');
         $description = $request->input('description');
-        
+
         $user->skills()->attach($skillId, ['progress' => $progress], ['description' => $description]);
         $request->session()->flash('message', 'Skill toegevoegd!');
         return redirect('/user/profile');

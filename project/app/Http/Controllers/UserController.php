@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Skill;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -114,7 +115,7 @@ class UserController extends Controller
 
     public function profile(){
         $data['user'] = User::find(Auth::id());
-        $data['skills'] = DB::table('skills')->where('active', '=', 1)->get();
+        $data['skills'] = Skill::where('active', '=', 1)->get();
         return view('users/profile', $data);
     }
 

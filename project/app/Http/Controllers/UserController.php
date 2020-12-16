@@ -116,7 +116,13 @@ class UserController extends Controller
     public function profile(){
         $data['user'] = User::find(Auth::id());
         $data['skills'] = Skill::where('active', '=', 1)->get();
-        return view('users/profile', $data);
+        
+        if($data['user']->company_admin == 1){
+            return view('companies/profile', $data);
+        }else{
+            return view('users/profile', $data);
+        }
+
     }
 
     public function update(Request $request){

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Support\Facades\Auth;
 class CompaniesController extends Controller
 {
     public function index(){
@@ -53,21 +53,26 @@ class CompaniesController extends Controller
         $city = $request->input('city');
         $email;
         $phone;
-        $address;
-        $postalCode;
+        $address = $request->input('address');
+        $postal_code = $request->input('postal_code');
         $province;
         $company = new \App\Models\Company();
-        $apiKey = "7ojNfkml0g9ZeF401eY0tS4GHy1Eor0_JSOVfrXVG50";
 
-        $url = "https://discover.search.hereapi.com/v1/discover?at=51.030136,4.488213&limit=1&q=$name . $city&apiKey=$apiKey";
-        $response = Http::get($url)->json();
+        /*--------------Old CODE-------------*/
+        //$apiKey = "7ojNfkml0g9ZeF401eY0tS4GHy1Eor0_JSOVfrXVG50";
+        //$url = "https://discover.search.hereapi.com/v1/discover?at=51.030136,4.488213&limit=1&q=$name . $city&apiKey=$apiKey";
+        //$response = Http::get($url)->json();
+        /*-------------End-Old-CODE-------------*/
+        $response = "";
+        $userId = Auth::id();
         if(empty($response['items'])){
+            $company->admin_id = $userId;
             $company->name = $name;
             $company->city = $city;
             $company->email = null;
             $company->phone = null;
-            $company->address = null;
-            $company->postal_code = null;
+            $company->address = $address;
+            $company->postal_code = $postal_code;
             $company->province = null;
             $company->slogan = null;
             $company->description = null;

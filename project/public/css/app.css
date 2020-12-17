@@ -10912,6 +10912,11 @@ a.text-dark:focus {
   margin-bottom: 20px;
 }
 
+.createCompanyBtn {
+  margin: 0 !important;
+  height: 39px !important;
+}
+
 .hidden {
   display: none;
 }

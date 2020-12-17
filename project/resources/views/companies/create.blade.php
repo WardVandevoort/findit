@@ -16,7 +16,7 @@
 
      {{ csrf_field() }}
 
-     <div class="form-group">
+     <!--<div class="form-group">
      <label for="name">Company name</label>
      <input type="text" class="form-control" id="name" name="name" placeholder="Your company name">
      </div>
@@ -28,5 +28,33 @@
 
      <button type="submit" class="btn btn-primary">Create company</button>
 
-     </form>
+     </form>!-->
+    <div class="form-row">
+    <div class="col">
+
+     <input type="text" class="form-control" id="name" name="name" placeholder="Your company name">
+
+     <div class="match-list"></div>
+    </div>
+
+    <div class="col">
+      <input type="text" class="form-control" id="address" name="address" disabled placeholder="Address">
+
+    </div>
+
+    <div class="col">
+      <input type="text" class="form-control" id="city" name="city" disabled placeholder="City name" value="">
+    </div>
+
+
+     <button type="submit" class="btn btn-primary createCompanyBtn">Create company</button>
+
+  </div>
+
+
+
+
+
+
+
 @endsection

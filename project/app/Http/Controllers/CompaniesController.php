@@ -16,14 +16,13 @@ class CompaniesController extends Controller
         $data['company'] = \App\Models\Company::where('id', $company)->with('internships')->first();
 
         /*--------------------------------Guzzle-API------------------------------------*/
-         //get the current company address
-         $get_companyAdress = \DB::select("SELECT city,address FROM companies WHERE id = $company");
-         $companyAdress = $get_companyAdress[0]->address;
-         $companycity = $get_companyAdress[0]->city;
+        //get the current company address
+        $companyAddress = $data['company']['address'];
+        $companycity = $data['company']['city'];
         //get the API key from the .env file
         $localiq_Api_Key=env('LOCATIONIQ_API_KEY');
         //API request url
-        $url_Locationiq = "https://api.locationiq.com/v1/autocomplete.php?key=$localiq_Api_Key&q=$companyAdress";
+        $url_Locationiq = "https://api.locationiq.com/v1/autocomplete.php?key=$localiq_Api_Key&q=$companyAddress";
 
         // get the Long & Lat of address
         $getLocation = Http::get($url_Locationiq)->json();
@@ -32,7 +31,7 @@ class CompaniesController extends Controller
 
         //get api key from the .env file
         $here_Api_Key = env('HERE_API_KEY');
-        $url_Hereapi ="https://discover.search.hereapi.com/v1/discover?at=$lat,$lon&cat=railway-station&q=railway+station&limit=5&apiKey=$here_Api_Key";
+        $url_Hereapi ="https://discover.search.hereapi.com/v1/discover?at=$lat,$lon&cat=railway-station&q=railway+station&limit=1&language=fr&apiKey=$here_Api_Key";
 
         $get_stations=Http::get($url_Hereapi)->json();
 
@@ -40,8 +39,26 @@ class CompaniesController extends Controller
         $stations['stations']= $get_stations['items'];
         //dd($stations);
         /*-------------------------------End-Guzzle-API------------------------------------*/
+         $url_mobiscore ="https://mobiscore.omgeving.vlaanderen.be/ajax/get-score?lat=$lat&lon=$lon";
+        $get_score=Http::get($url_mobiscore)->json();
 
-        return view('companies/show', $data,$stations);
+        if($get_score['status'] != "ok"){
+            $stations= $get_stations['items'] ;
+            $roundedScore = ' ';
+            $errormsg = 'No score is available for this address';
+            return view('companies/show', $data,compact('stations','errormsg'));
+        }else{
+        $onlyScore= $get_score['score']['scores']['totaal'];
+         $scores= $get_score['score']['scores'];
+
+        $roundedScore = round($onlyScore,1);
+
+
+        $stations= $get_stations['items'] ;
+        //dd($stations);
+        return view('companies/show', $data,compact('scores','stations','roundedScore'));
+        }
+        //return view('companies/show', $data,$stations);
     }
 
     public function create(){

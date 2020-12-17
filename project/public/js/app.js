@@ -38084,7 +38084,23 @@ btns.forEach(function (btn) {
     form.classList.add("hidden");
   });
 });
+/*---------Nearest-Station-Card------------*/
+
+var scoreErrmsg = document.querySelector(".scoreErrmsg");
+
+if (scoreErrmsg === null) {
+  var scoreErrmsg = 0;
+} else {
+  if (scoreErrmsg.innerHTML.length == 8) {
+    document.querySelector(".scoreErrmsg").style.display = "none";
+  } else {
+    document.querySelector(".scoreErrmsg").style.display = "block";
+  }
+}
+/*--------End-Nearest-Station-Card------------*/
+
 /*--------------------Search-Company-autoFill--------------------------*/
+
 
 var search = document.querySelector("#name");
 var matchList = document.querySelector(".match-list");

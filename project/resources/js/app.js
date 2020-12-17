@@ -33,6 +33,23 @@ btns.forEach((btn) => {
 });
 
 
+/*---------Nearest-Station-Card------------*/
+
+var scoreErrmsg = document.querySelector(".scoreErrmsg");
+
+if(scoreErrmsg === null){
+var scoreErrmsg = 0;
+}else{
+  if (scoreErrmsg.innerHTML.length == 8) {
+      document.querySelector(".scoreErrmsg").style.display = "none";
+  } else {
+      document.querySelector(".scoreErrmsg").style.display = "block";
+  }
+}
+
+
+/*--------End-Nearest-Station-Card------------*/
+
 
 /*--------------------Search-Company-autoFill--------------------------*/
 

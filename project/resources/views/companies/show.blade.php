@@ -133,21 +133,52 @@
     @foreach( $company->internships as $internship )
     <div>{{ $internship->title }}</div>
     @endforeach
-    <p>
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#nearestStations" aria-expanded="false" aria-controls="collapseExample">
-            Nearest stations
-            </button>
-    </p>
-    <div class="collapse" id="nearestStations">
-        <div class="card card-body">
-            <ul class="list-group list-group-flush">
+    <!-- Card Nearest stations & Public transport score -->
+<div class="card text-center" style="width: 18rem;"  id="nearestStations">
+
+<div class="card-header nearestStation">
+<h3>Nearest stations</h3>
+</div>
+  <!-- Card content -->
+  <div class="card-body pb-3" style="padding-bottom:0px!important;">
+
+
+    <div class="flex mb-4">
+      <i class="fas fa-train fa-lg text-info pr-2"></i>
+      <p>Public transport score</p>
+    </div>
+    <div class="flex justify-content-between ">
+
+
+      <p class="display-4 degree ">{{$roundedScore ?? ''}}/10</p>
+
+    <div class="display-7 alert alert-danger scoreErrmsg" role="alert">
+  {{$errormsg ?? ''}}
+    </div>
+
+    </div>
+
+
+    <div class="card-header">
+        Station
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
                 @foreach( $stations as $station)
-                        @if ($station['distance'] < 10500)
-                            <li class="list-group-item"> {{ $station['title']}}</li>
-                    @endif
+
+        <li class="list-group-item"> {{ $station['title']}}</li>
+
                 @endforeach
             </ul>
-        </div>
-    </div>
+      </div>
+
+
+
+
+
+  </div>
+
+</div>
+<!-- Card -->
 
 @endsection

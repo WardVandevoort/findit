@@ -5,6 +5,12 @@
 // Variables
 @import 'variables';
 
+
+//fontawesome
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
@@ -47,3 +53,44 @@ h3 a {
      padding-right: 0.35em;
      margin-right: 0.35em;
 }
+
+
+/*---------Nearest-Station-Card------------*/
+p.display-4.degree {
+    margin: 0px auto 40px;
+}
+
+i.fas.fa-train.fa-lg.text-info.pr-2 {
+    font-size: 69px;
+     margin-bottom: 20px;
+}
+
+
+
+.card-body.pb-3{
+
+  padding:0px;
+}
+
+
+h4.card-title.font-weight-bold {
+    margin-top: .75rem;
+}
+
+
+.card-body{
+    padding: 0rem;
+}
+
+.card-header.nearestStation{
+    margin-bottom: 42px;
+
+
+}
+
+#nearestStations {
+       margin-top: 40px;
+    margin-bottom: 35px!important;
+}
+/*---------End-Station-Card------------*/
+

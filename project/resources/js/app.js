@@ -121,6 +121,7 @@ const outputHtml = matches=>{
 
                     city.value = c[1].children[1].innerHTML;
                     address.value = c[1].children[0].innerHTML;
+                    postalCode.value = c[1].children[2].innerHTML;
 
                 }
 

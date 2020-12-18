@@ -38174,6 +38174,7 @@ var outputHtml = function outputHtml(matches) {
         //console.log(c[1].children[2].innerHTML);
         city.value = c[1].children[1].innerHTML;
         address.value = c[1].children[0].innerHTML;
+        postalCode.value = c[1].children[2].innerHTML;
       }
 
       if (city.value.length > 0 && address.value.length > 0) {

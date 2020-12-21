@@ -12,7 +12,7 @@ class StudentsController extends Controller
     }
 
     public function show($student){
-        $student = \DB::table('users')->where('id', $student)->first();
-        dd($student);
+        $data['student'] = \DB::table('users')->where('id', $student)->first();
+        return view('students/show', $data);
     }
 }

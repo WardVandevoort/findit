@@ -11,6 +11,15 @@
 @section('content')
 
 <h1>{{ $internship->title }}</h1>
-<a href="/applications/create/{{ $internship->id }}">solliciteer</a>
+
+<p>{{ $internship->bio }}</p>
+
+<p><strong>Required skills:</strong> {{ $internship->req_skills }}</p>
+
+<p><strong>Start of internship:</strong> {{ $internship->start }}</p>
+
+<p><strong>End of internship:</strong> {{ $internship->end }}</p>
+
+<a class="btn btn-primary" href="/applications/create/{{ $internship->id }}">solliciteer</a>
 
 @endsection

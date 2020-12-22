@@ -5,8 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
+
+/*if(Auth::check() != true) {
+    echo('not logged in!');
+    return redirect('/login');
+}*/
+
 class CompaniesController extends Controller
 {
+
     public function index(){
         $data['companies'] = \DB::table('companies')->get();
         return view('companies/index', $data);

@@ -44,5 +44,8 @@ class ApplicationSeeder extends Seeder
         foreach ($applications as $application) {
             Application::updateOrCreate($application);
         }
+
+        //Generate 10 other applications
+        Application::factory()->count(10)->create();
     }
 }

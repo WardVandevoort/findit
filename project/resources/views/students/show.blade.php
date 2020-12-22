@@ -18,12 +18,12 @@
 
 <h3>Contact</h3>
 
-<p>{{ $student->address }}, {{ $student->city }} {{ $student->postal_code }}</p>
+<p><strong>Address:</strong> {{ $student->address }}, {{ $student->city }} {{ $student->postal_code }}</p>
 
-<p>{{ $student->province }}</p>
+<p><strong>Province:</strong> {{ $student->province }}</p>
 
-<p>Phone: {{ $student->phone }}</p>
+<p><strong>Phone:</strong> {{ $student->phone }}</p>
 
-<p>Email: {{ $student->email }}</p>
+<p><strong>Email:</strong> {{ $student->email }}</p>
 
 @endsection

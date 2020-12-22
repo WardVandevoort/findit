@@ -2,21 +2,6 @@
 
 @section('title', 'Inloggen')
 
-@section('nav')
-    <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/students">Studenten</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/internships">Stages</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/companies">Bedrijven</a>
-    </li>
-@endsection
-
 @section('content')
     @if( $flash = session('error'))
         @component('components/alert')
@@ -40,7 +25,8 @@
             <label class="form-check-label" for="remember">Remember me</label>
         </div>
         <button type="submit" class="btn btn-primary">Log in</button>
+        <a href="/register">Don't have an account yet?</a>
     </form>
     <hr>
-    <a href="/login/linkedin" class="btn btn-linkedin"><i class="fa fa-linkedin"></i> Log in met Linkedin</a>
+    <a href="/login/linkedin" class="btn btn-linkedin"><i class="fa fa-linkedin"></i> Log in with Linkedin</a>
 @endsection

@@ -35,8 +35,6 @@ class ApplicationController extends Controller
 
     public function store(Request $request)
     {
-
-
         $rules = [
             'motivation' => 'required|min:20',
         ];
@@ -52,8 +50,9 @@ class ApplicationController extends Controller
         $application = new Application();
         $application->motivation = $request->input('motivation');
         $application->user_id = Auth::user()->id;
-        $application->internship_id = \Request::segment(3);
+        $application->internship_id = \Request::segment(2);
         $application->save();
         $request->session()->flash('message', 'Proficiat, u heeft gesolliciteerd!');
+        return view("applications/overview");
     }
 }

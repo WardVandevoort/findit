@@ -50,6 +50,7 @@ Route::get('/applications', [ApplicationController::class, 'index'])->middleware
 Route::get('/applications/{internship}', [ApplicationController::class, 'show'])->middleware('auth');
 Route::get('/applications/create/{internship}', [ApplicationController::class, 'create'])->middleware('auth');
 Route::post('/applications/{internship}', [ApplicationController::class, 'store'])->middleware('auth');
+Route::get('/applications/overview', [ApplicationController::class, 'overview'])->middleware('auth');
 
 
 

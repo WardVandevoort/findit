@@ -1,6 +1,5 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
 // Variables
 @import 'variables';
@@ -65,27 +64,8 @@ i.fas.fa-train.fa-lg.text-info.pr-2 {
      margin-bottom: 20px;
 }
 
-
-
-.card-body.pb-3{
-
-  padding:0px;
-}
-
-
-h4.card-title.font-weight-bold {
-    margin-top: .75rem;
-}
-
-
-.card-body{
-    padding: 0rem;
-}
-
 .card-header.nearestStation{
     margin-bottom: 42px;
-
-
 }
 
 #nearestStations {

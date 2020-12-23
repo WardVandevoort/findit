@@ -140,7 +140,7 @@
 <h3>Nearest stations</h3>
 </div>
   <!-- Card content -->
-  <div class="card-body pb-3" style="padding-bottom:0px!important;">
+  <div class="card-body" style="padding-bottom:0px!important;">
 
 
     <div class="flex mb-4">

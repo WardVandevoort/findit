@@ -43,4 +43,8 @@ class User extends Authenticatable
     public function skills(){
         return $this->belongsToMany('App\Models\Skill')->withPivot('progress', 'description');
     }
+
+    public function links(){
+        return $this->hasMany('\App\Models\PortfolioLink');
+    }
 }

@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
 /*!
  * Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com
@@ -17075,18 +17075,6 @@ p.display-4.degree {
 i.fas.fa-train.fa-lg.text-info.pr-2 {
   font-size: 69px;
   margin-bottom: 20px;
-}
-
-.card-body.pb-3 {
-  padding: 0px;
-}
-
-h4.card-title.font-weight-bold {
-  margin-top: 0.75rem;
-}
-
-.card-body {
-  padding: 0rem;
 }
 
 .card-header.nearestStation {

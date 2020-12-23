@@ -28,5 +28,5 @@
         <a href="/register">Don't have an account yet?</a>
     </form>
     <hr>
-    <a href="/login/linkedin" class="btn btn-linkedin"><i class="fa fa-linkedin"></i> Log in with Linkedin</a>
+    <a href="/login/linkedin" class="btn btn-linkedin"><i class="fab fa-linkedin"></i> Log in with Linkedin</a>
 @endsection

@@ -38108,7 +38108,7 @@ var city = document.querySelector("#city");
 var address = document.querySelector("#address");
 var cName = document.querySelector("#name");
 var postalCode = document.querySelector("#postalCode");
-var userInput = document.querySelector("#name").value; //Search states.json and filter it
+var userInput = search ? document.querySelector("#name").value : ""; //Search states.json and filter it
 
 var searchCompany = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(searchText) {
@@ -38184,8 +38184,79 @@ var outputHtml = function outputHtml(matches) {
   }
 };
 
-search.addEventListener('input', function () {
-  return searchCompany(search.value);
+if (search) {
+  search.addEventListener('input', function () {
+    return searchCompany(search.value);
+  });
+}
+
+var linkedinValidation = new Vue({
+  el: "#app",
+  data: {
+    accountExist: false,
+    formPath: '/register',
+    emailValidClass: '',
+    emailFbClass: 'valid-feedback',
+    emailErrors: [],
+    showBackButton: false,
+    title: 'Geef je school email in'
+  },
+  methods: {
+    checkEmail: function checkEmail(e) {
+      e.preventDefault();
+      var appVue = this;
+      var token = $('input[name="_token"]').val();
+      var email = $('#email').val();
+      $.ajax({
+        type: 'POST',
+        url: '/ajax/check-email',
+        data: {
+          email: email,
+          _token: token
+        },
+        success: function success(data) {
+          console.log('success');
+          console.log(data);
+          appVue.emailValidClass = '';
+          appVue.emailFbClass = 'valid-feedback';
+          appVue.emailErrors = [];
+
+          if (data.accountExist) {
+            appVue.accountExist = true;
+            appVue.formPath = '/provide-email';
+            appVue.title = 'Geef het wachtwoord voor ' + data.email;
+            appVue.showBackButton = true;
+            var password = $("#password").val();
+
+            if (password && password != "") {
+              appVue.$refs.form.submit();
+            }
+          } else if (data.accountExist == false && appVue.accountExist == false) {
+            appVue.$refs.form.submit();
+          }
+        },
+        error: function error(err) {
+          console.log('error');
+
+          if (err.status == 422) {
+            console.log(err.responseJSON.errors);
+
+            if (err.responseJSON.errors.email) {
+              appVue.emailErrors = err.responseJSON.errors.email;
+              appVue.emailValidClass = 'is-invalid';
+              appVue.emailFbClass = 'invalid-feedback';
+            }
+          }
+        }
+      });
+    },
+    createAccount: function createAccount() {
+      this.accountExist = false;
+      this.formPath = '/register';
+      this.showBackButton = false;
+      this.title = 'Geef je school email in';
+    }
+  }
 });
 
 /***/ }),

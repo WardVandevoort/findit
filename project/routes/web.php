@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InternshipController;
 use App\Http\Controllers\CompaniesController;
@@ -25,13 +26,20 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('auth');
 
+Route::post('/ajax/check-email', [AjaxController::class,'checkEmail']);
+
 Route::get('/register', [UserController::class, 'register']);
 Route::post('/register', [UserController::class, 'handleRegister']);
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::get('/login/linkedin', [UserController::class, 'redirectToProviderLinkedin']);
 Route::get('/login/linkedin/callback', [UserController::class, 'handleProviderLinkedinCallback']);
+Route::get('/provide-email', [UserController::class, 'provideEmail']);
+Route::post('/provide-email', [UserController::class, 'handlerProvideEmail']);
 Route::post('/login', [UserController::class, 'handleLogin']);
 Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
+Route::get('/confirm', function () {
+    return view('users/provide_academic_email');
+});
 
 Route::get('/user/profile', [UserController::class, 'profile'])->middleware('auth');
 Route::post('/user/profile', [UserController::class, 'update'])->middleware('auth');

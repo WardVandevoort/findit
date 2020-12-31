@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Skill;
 use App\Models\User;
 use Exception;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use Laravel\Socialite\Facades\Socialite;
+use Mockery\Exception\InvalidOrderException;
 
 class UserController extends Controller
 {
@@ -43,18 +46,28 @@ class UserController extends Controller
             'password_confirmation.required' => 'Bevestiging van wachtwoord vereist'
         ];
 
-        if($request->input('companyAdmin') == 0){
-            $rules['email'] = 'required|email|max:255|unique:users|regex:/(.*)student\.thomasmore\.be$/i';
+        if($request->session()->has('linkedinUser')){
+            $linkedinUser = $request->session()->pull('linkedinUser');
+            $user = new User();
+            $user->firstname = $linkedinUser->first_name;
+            $user->lastname = $linkedinUser->last_name;
+            $user->password = \Hash::make($linkedinUser->id);
+            $user->linkedin_id = $linkedinUser->id;
+        }else{
+            if($request->input('companyAdmin') == 0){
+                $rules['email'] = ['required','email','max:255','regex:/(^test(.*)|r\d{7,8})@student\.thomasmore\.be$/i'];
+            }
+    
+            $validation = $request->validate($rules,$messages);
+
+            $user = new User();
+            $user->firstname = $request->input('firstname');
+            $user->lastname = $request->input('lastname');
+            $user->password = \Hash::make($request->input('password'));
+            $user->company_admin = $request->input('companyAdmin');
         }
 
-        $validation = $request->validate($rules,$messages);
-
-        $user = new User();
-        $user->firstname = $request->input('firstname');
-        $user->lastname = $request->input('lastname');
         $user->email = $request->input('email');
-        $user->password = \Hash::make($request->input('password'));
-        $user->company_admin = $request->input('companyAdmin');
         $user->save();
 
         return redirect('/login')->withInput(
@@ -85,31 +98,53 @@ class UserController extends Controller
     }
 
     public function handleProviderLinkedinCallback(Request $request)
-    {
+    {      
         try{
-            $user = Socialite::driver('linkedin')->user();
-            $userExist = User::where('email',$user->email)->first();
+            $linkedinUser = Socialite::driver('linkedin')->user();
+            $userExist = User::where('linkedin_id',$linkedinUser->id)->first();
+            
             if($userExist)
             {
                 Auth::loginUsingId($userExist->id);
+                return redirect('/');
             }
             else
             {
-                $newUser = new User;
-                $newUser->firstname = $user->first_name;
-                $newUser->lastname = $user->last_name;
-                $newUser->email = $user->email;
-                $newUser->linkedin_id = $user->id;
-                $newUser->password = bcrypt(rand(1,10000));
-                $newUser->save();
-                Auth::loginUsingId($newUser->id);
+                $request->session()->put('linkedinUser', $linkedinUser);
+                return redirect('/provide-email');
             }
-            return redirect('/');
         }catch(Exception $e)
         {
+            
             $request->session()->flash('error', $request->input('error_description'));
-
             return redirect('/login');
+            
+        }
+        
+    }
+
+    public function provideEmail()
+    {
+        return view('users/linkedin_callback');
+    }
+
+    public function handlerProvideEmail(Request $request)
+    {        
+        try{
+            $credentials = $request->only(['email', 'password']);
+            if (Auth::attempt($credentials)) {
+                $linkedinUser = $request->session()->pull('linkedinUser');
+                $user = User::find(Auth::id());
+                $user->linkedin_id = $linkedinUser->id;
+                $user->save();
+                Auth::loginUsingId($user->id);
+                return redirect('/');
+            }else{
+                $request->session()->flash('error', 'Email of wachtwoord is onjuist');
+                return view('users/linkedin_callback');
+            }
+        }catch(Exception $e){
+            dd($e);
         }
     }
 

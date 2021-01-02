@@ -10,53 +10,95 @@
 
 @section('content')
 
-<h1><span class="admin">Name: </span>{{ $company->name }}</h1>
+<h1>
+@if( \Auth::user()->can('update', $company ))
+<span class="admin">Logo: </span>
+@endif
+</h1>
 
-<a class="change" id="1" href="#" >Change name</a>
+<img class="img-fluid" src="{{ asset('/storage/companyImages/' . $company->logo) }}" alt="companyLogo">
 
-<form class="hidden" id="form1" method="post" action="/companies/update">
+@if( \Auth::user()->can('update', $company ))
+<a class="change" id="1" href="#" >Change logo</a>
+
+<form class="hidden" id="form1" method="post" action="/companies/update" enctype="multipart/form-data">
 
     {{ csrf_field() }}
 
     <div class="form-group">
-     <input type="text" class="form-control" id="name" name="name" placeholder="Your new company name">
+     <input type="file" class="form-control" id="logo" name="logo">
     </div>
     <a class="btn btn-danger" id="1" href="#" >Cancel</a>
     <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
 
 </form>
+@endif
 
-<h2><span class="admin">Slogan: </span>{{ $company->slogan }}</h2>
+<h1>
+@if( \Auth::user()->can('update', $company ))
+<span class="admin">Name: </span>
+@endif
+{{ $company->name }}</h1>
 
-<a class="change" id="2" href="#" >Change slogan</a>
+@if( \Auth::user()->can('update', $company ))
+<a class="change" id="2" href="#" >Change name</a>
 
 <form class="hidden" id="form2" method="post" action="/companies/update">
 
     {{ csrf_field() }}
 
     <div class="form-group">
-     <input type="text" class="form-control" id="slogan" name="slogan" placeholder="Your new company slogan">
+     <input type="text" class="form-control" id="name" name="name" placeholder="Your new company name">
     </div>
     <a class="btn btn-danger" id="2" href="#" >Cancel</a>
     <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
 
 </form>
+@endif
 
-<h3><span class="admin">Description: </span>{{ $company->description }}</h3>
+<h2>
+@if( \Auth::user()->can('update', $company ))
+<span class="admin">Slogan: </span>
+@endif
+{{ $company->slogan }}</h2>
 
-<a class="change" id="3" href="#" >Change description</a>
+@if( \Auth::user()->can('update', $company ))
+<a class="change" id="3" href="#" >Change slogan</a>
 
 <form class="hidden" id="form3" method="post" action="/companies/update">
 
     {{ csrf_field() }}
 
     <div class="form-group">
-     <input type="text" class="form-control" id="description" name="description" placeholder="Your new company description">
+     <input type="text" class="form-control" id="slogan" name="slogan" placeholder="Your new company slogan">
     </div>
     <a class="btn btn-danger" id="3" href="#" >Cancel</a>
     <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
 
 </form>
+@endif
+
+<h3>
+@if( \Auth::user()->can('update', $company ))
+<span class="admin">Description: </span>
+@endif
+{{ $company->description }}</h3>
+
+@if( \Auth::user()->can('update', $company ))
+<a class="change" id="4" href="#" >Change description</a>
+
+<form class="hidden" id="form4" method="post" action="/companies/update">
+
+    {{ csrf_field() }}
+
+    <div class="form-group">
+     <input type="text" class="form-control" id="description" name="description" placeholder="Your new company description">
+    </div>
+    <a class="btn btn-danger" id="4" href="#" >Cancel</a>
+    <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
+
+</form>
+@endif
 
     <div>
         <h3>Contact</h3>
@@ -66,9 +108,10 @@
             <li>City: {{ $company->city }}, {{ $company->postal_code }}</li>
             <li>Province: {{ $company->province }}</li>
 
-            <a class="change" id="4" href="#" >Change address</a>
+            @if( \Auth::user()->can('update', $company ))
+            <a class="change" id="5" href="#" >Change address</a>
 
-            <form class="hidden" id="form4" method="post" action="/companies/update">
+            <form class="hidden" id="form5" method="post" action="/companies/update">
 
             {{ csrf_field() }}
 
@@ -87,47 +130,72 @@
             <label for="province">Change province</label>
             <input type="text" class="form-control" id="province" name="province" placeholder="Your new company province">
             </div>
-            <a class="btn btn-danger" id="4" href="#" >Cancel</a>
-            <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
-
-            </form>
-
-            <li>Phone: {{ $company->phone }}</li>
-
-            <a class="change" id="5" href="#" >Change phone number</a>
-
-            <form class="hidden" id="form5" method="post" action="/companies/update">
-
-            {{ csrf_field() }}
-
-            <div class="form-group">
-            <input type="text" class="form-control" id="phone" name="phone" placeholder="Your new company phone number">
-            </div>
             <a class="btn btn-danger" id="5" href="#" >Cancel</a>
             <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
 
             </form>
+            @endif
 
-            <li>Email: {{ $company->email }}</li>
+            <li>Website: <a href="{{ $company->website }}">{{ $company->website }}</a></li>
 
-            <a class="change" id="6" href="#" >Change email address</a>
+            @if( \Auth::user()->can('update', $company ))
+            <a class="change" id="6" href="#" >Change website url</a>
 
             <form class="hidden" id="form6" method="post" action="/companies/update">
 
             {{ csrf_field() }}
 
             <div class="form-group">
-            <input type="text" class="form-control" id="email" name="email" placeholder="Your new company email address">
+            <input type="text" class="form-control" id="website" name="website" placeholder="Your new website url">
             </div>
             <a class="btn btn-danger" id="6" href="#" >Cancel</a>
             <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
 
             </form>
+            @endif
+
+            <li>Phone: {{ $company->phone }}</li>
+
+            @if( \Auth::user()->can('update', $company ))
+            <a class="change" id="7" href="#" >Change phone number</a>
+
+            <form class="hidden" id="form7" method="post" action="/companies/update">
+
+            {{ csrf_field() }}
+
+            <div class="form-group">
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="Your new company phone number">
+            </div>
+            <a class="btn btn-danger" id="7" href="#" >Cancel</a>
+            <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
+
+            </form>
+            @endif
+
+            <li>Email: {{ $company->email }}</li>
+
+            @if( \Auth::user()->can('update', $company ))
+            <a class="change" id="8" href="#" >Change email address</a>
+
+            <form class="hidden" id="form8" method="post" action="/companies/update">
+
+            {{ csrf_field() }}
+
+            <div class="form-group">
+            <input type="text" class="form-control" id="email" name="email" placeholder="Your new company email address">
+            </div>
+            <a class="btn btn-danger" id="8" href="#" >Cancel</a>
+            <button type="submit" class="btn btn-primary" name="company_id" value="{{ $company->id }}">Save changes</button>
+
+            </form>
+            @endif
 
         </ul>
     </div>
 
+    @if( \Auth::user()->can('update', $company ))
     <a class="btn btn-primary" href="/internships/create/{{ $company->id }}" >Create internship</a>
+    @endif
 
     <h2>Internships</h2>
     @foreach( $company->internships as $internship )

@@ -8,6 +8,15 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 </head>
 <body>
+  <div class="container">
+  @if( $flash = session('message'))
+    <div class="alert alert-success">{{ $flash }}</div>
+  @endif
+
+  @if( $flash = session('error'))
+    <div class="alert alert-danger">{{ $flash }}</div>
+  @endif
+  </div>
   <div class="container index">
   @yield('content')
   </div>

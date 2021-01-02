@@ -8,6 +8,15 @@
 </head>
 <body>
   <x-nav/>
+  <div class="container">
+  @if( $flash = session('message'))
+    <div class="alert alert-success">{{ $flash }}</div>
+  @endif
+
+  @if( $flash = session('error'))
+    <div class="alert alert-danger">{{ $flash }}</div>
+  @endif
+  </div>
   <div class="container index">
   @yield('content')
   </div>

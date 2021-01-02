@@ -6,11 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
-/*if(Auth::check() != true) {
-    echo('not logged in!');
-    return redirect('/login');
-}*/
-
 class CompaniesController extends Controller
 {
 
@@ -21,7 +16,7 @@ class CompaniesController extends Controller
 
     public function show($company){
         $data['company'] = \App\Models\Company::where('id', $company)->with('internships')->first();
-
+        
         /*--------------------------------Guzzle-API------------------------------------*/
         //get the current company address
         $companyAddress = $data['company']['address'];
@@ -64,6 +59,7 @@ class CompaniesController extends Controller
         $stations= $get_stations['items'] ;
         //dd($stations);
         return view('companies/show', $data,compact('scores','stations','roundedScore'));
+        
         }
         //return view('companies/show', $data,$stations);
     }
@@ -82,17 +78,22 @@ class CompaniesController extends Controller
         $province;
         $company = new \App\Models\Company();
 
-        /*--------------Old CODE-------------*/
-        //$apiKey = "7ojNfkml0g9ZeF401eY0tS4GHy1Eor0_JSOVfrXVG50";
-        //$url = "https://discover.search.hereapi.com/v1/discover?at=51.030136,4.488213&limit=1&q=$name . $city&apiKey=$apiKey";
-        //$response = Http::get($url)->json();
-        /*-------------End-Old-CODE-------------*/
-        $response = "";
+        
+        $apiKey = env('HERE_API_KEY');
+        $url = "https://discover.search.hereapi.com/v1/discover?at=51.030136,4.488213&limit=1&q=$name . $city&apiKey=$apiKey";
+        $response = Http::get($url)->json();
+        
+      
+        //$response = "";
         $userId = Auth::id();
+        $user = \Auth::user();
+        if( $user->can('create', $company)){
         if(empty($response['items'])){
             $company->admin_id = $userId;
+            $company->logo = null;
             $company->name = $name;
             $company->city = $city;
+            $company->website = null;
             $company->email = null;
             $company->phone = null;
             $company->address = $address;
@@ -103,11 +104,12 @@ class CompaniesController extends Controller
 
             $companyExists = \App\Models\Company::where('name', $name)->where('city', $city)->first();
             if($companyExists != null){
-                echo('Company already exists!');
-                return;
+                $request->session()->flash('error', 'Company already exists!');
+                return redirect('/companies/create');
             }
             else{
                 $company->save();
+                $request->session()->flash('message', 'Company created!');
                 $data = \App\Models\Company::where('name', $name)->where('city', $city)->first();
 
                 return redirect('/companies/' . $data['id']);
@@ -119,6 +121,16 @@ class CompaniesController extends Controller
         else{
             $response = $response['items'][0];
             $company->name = $name;
+            $company->admin_id = $userId;
+            $company->logo = null;
+
+            if(!empty($response['contacts'][0]['www'][0]['value'])){
+                $website = $response['contacts'][0]['www'][0]['value'];
+            }
+            else{
+                $website = null;
+            }
+            $company->website = $website;
 
             if(!empty($response['contacts'][0]['email'][0]['value'])){
                 $email = $response['contacts'][0]['email'][0]['value'];
@@ -166,16 +178,22 @@ class CompaniesController extends Controller
 
             $companyExists = \App\Models\Company::where('name', $name)->where('city', $city)->first();
             if($companyExists != null){
-                echo('Company already exists!');
-                return;
+                $request->session()->flash('error', 'Company already exists!');
+                return redirect('/companies/create');
             }
             else{
                 $company->save();
+                $request->session()->flash('message', 'Company created!');
                 $data = \App\Models\Company::where('name', $name)->where('city', $city)->first();
 
                 return redirect('/companies/' . $data['id']);
             }
+        }
 
+        }
+        else {
+            $request->session()->flash('error', 'You do not have the authorization to create a company!');
+            return redirect('/companies');
         }
 
     }
@@ -189,10 +207,20 @@ class CompaniesController extends Controller
         $city = $request->input('city');
         $postal_code = $request->input('postal_code');
         $province = $request->input('province');
+        $website = $request->input('website');
         $phone = $request->input('phone');
         $email = $request->input('email');
         $switch;
+        $company = \App\Models\Company::where('id', $company_id)->first();
+        $user = \Auth::user();
 
+        if($user->can('update', $company)){
+        if( $request->hasFile('logo')){
+            $filename = $request->logo->getClientOriginalName();
+            $request->logo->storeAs('companyImages', $filename, 'public');
+            $data = \App\Models\Company::where('id', $company_id)->update(['logo' => $filename]);
+            return redirect('/companies/' . $company_id);
+        }
         if($name != null && $name != ' '){
             $data = \App\Models\Company::where('id', $company_id)->update(['name' => $name]);
             return redirect('/companies/' . $company_id);
@@ -216,6 +244,10 @@ class CompaniesController extends Controller
             'province' => $province]);
             return redirect('/companies/' . $company_id);
         }
+        else if($website != null && $website != ' '){
+            $data = \App\Models\Company::where('id', $company_id)->update(['website' => $website]);
+            return redirect('/companies/' . $company_id);
+        }
         else if($phone != null && $phone != ' '){
             $data = \App\Models\Company::where('id', $company_id)->update(['phone' => $phone]);
             return redirect('/companies/' . $company_id);
@@ -225,6 +257,11 @@ class CompaniesController extends Controller
             return redirect('/companies/' . $company_id);
         }
         else{
+            return redirect('/companies/' . $company_id);
+        }
+        }
+        else {
+            $request->session()->flash('error', 'You are not authorized to update this company!');
             return redirect('/companies/' . $company_id);
         }
 

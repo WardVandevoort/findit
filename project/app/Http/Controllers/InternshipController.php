@@ -32,6 +32,7 @@ class InternshipController extends Controller
             $internship = new \App\Models\Internship();
             $internship->title = $request->input('title');
             $internship->bio = $request->input('bio');
+            $internship->type = $request->input('type');
             $internship->req_skills = $request->input('req_skills');
             $internship->start = $request->input('start');
             $internship->end = $request->input('end');
@@ -48,8 +49,37 @@ class InternshipController extends Controller
 
     public function search(Request $request)
     {
-        $search_text = $request->input('query');
-        $internships = \App\Models\Internship::where('title', 'LIKE', '%' . $search_text . '%')->get();
-        return view('welcome')->with('internships', $internships);
+        
+        if($request->has('type') && $request->input('type') != null || 
+        $request->has('query') && $request->input('query') != null ||
+        $request->has('startDate') && $request->input('startDate') != null ||
+        $request->has('endDate') && $request->input('endDate') != null) {
+
+            $query = \App\Models\Internship::query();
+
+            if($request->has('type') && $request->input('type') != null){
+                $query->where('type', $request->input('type'));
+            }
+
+            if($request->has('query') && $request->input('query') != null){
+                $query->where('title', 'LIKE', '%' . $request->input('query'). '%')->orWhere('req_skills', 'LIKE', '%' . $request->input('query'). '%');
+            }
+
+            if($request->has('startDate') && $request->input('startDate') != null && $request->has('endDate') && $request->input('endDate') != null){
+                $query->where('start', '>=', $request->input('startDate'))->where('end', '<=', $request->input('endDate'));
+            }
+
+            $internships = $query->get();
+            //var_dump($internships);
+            return view('welcome')->with('internships', $internships);
+
+        } 
+        else {
+
+            $internships = \App\Models\Internship::all();
+            return view('welcome')->with('internships', $internships);
+
+        }
+
     }
 }

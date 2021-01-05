@@ -14,12 +14,14 @@
 
 <p>{{ $internship->bio }}</p>
 
+<p><strong>Type of internship:</strong> {{ $internship->type }}</p>
+
 <p><strong>Required skills:</strong> {{ $internship->req_skills }}</p>
 
 <p><strong>Start of internship:</strong> {{ $internship->start }}</p>
 
 <p><strong>End of internship:</strong> {{ $internship->end }}</p>
 
-<a class="btn btn-primary" href="/applications/create/{{ $internship->id }}">solliciteer</a>
+<a class="btn btn-primary" href="/applications/create/{{ $internship->id }}">apply</a>
 
 @endsection

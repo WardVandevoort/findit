@@ -22,12 +22,22 @@ class InternshipFactory extends Factory
      */
     public function definition()
     {
+        $randomType = rand(0, 1);
+        $type;
+        if($randomType == 0) {
+            $type = 'Design';
+        }
+        else {
+            $type = 'Development';
+        }
+
         return [
             'title' => $this->faker->jobTitle,
             'bio' => $this->faker->realText(200),
             'start' => $this->faker->date($format = 'Y-m-d', $max = 'now', $min = '-1 month'),
             'end' => $this->faker->date($format = 'Y-m-d', $max = '+2 months', $min = 'now'),
             'req_skills' => $this->faker->realText(200),
+            'type' => $type,
             'company_id' => Company::all()->random()->id,
         ];
     }

@@ -7,20 +7,20 @@
         <a class="nav-link" href="/">Home</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/students">Studenten</a>
+        <a class="nav-link" href="/students">Students</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/internships">Stages</a>
+        <a class="nav-link" href="/internships">Internships</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/companies">Bedrijven</a>
+        <a class="nav-link" href="/companies">Companies</a>
     </li>
 @endsection
 
 @section('content')
   <div class="row">
     <div class="col-md-8">
-      <h2>Profiel</h2>
+      <h2>Profile</h2>
       @if( $flash = session('message') )
         @component('components/alert')
           @slot('type', 'success')
@@ -107,34 +107,34 @@
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label for="dateOfBirth">Geboortedatum</label>
+                <label for="dateOfBirth">Date of birth</label>
                 <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" value="{{ $user->date_of_birth }}">
               </div>
               <div class="form-group col-md-6">
-                <label for="gender">Geslacht</label>
+                <label for="gender">Gender</label>
                 <select name="gender" id="gender" class="form-control">
-                  <option value="" {{ ($user->gender == "" ? "selected":"") }}>Kies een geslacht:</option>
+                  <option value="" {{ ($user->gender == "" ? "selected":"") }}>Choose a gender:</option>
                   <option value="male" {{ ($user->gender == "male" ? "selected":"") }}>Man</option>
-                  <option value="female" {{ ($user->gender == "female" ? "selected":"") }}>Vrouw</option>
-                  <option value="unknown" {{ ($user->gender == "unknown" ? "selected":"") }}>Onbekend</option>
+                  <option value="female" {{ ($user->gender == "female" ? "selected":"") }}>Woman</option>
+                  <option value="unknown" {{ ($user->gender == "unknown" ? "selected":"") }}>Other</option>
                 </select>
               </div>
             </div>
             <div class="form-group">
-              <label for="address">Straat</label>
+              <label for="address">Street</label>
               <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label for="city">Stad</label>
+                <label for="city">City</label>
                 <input type="text" class="form-control" id="city" name="city" value="{{ $user->city }}">
               </div>
               <div class="form-group col-md-4">
-              <label for="province">Provincie</label>
+              <label for="province">Province</label>
               <input type="text" class="form-control" id="province" name="province" value="{{ $user->province }}">
               </div>
               <div class="form-group col-md-2">
-                <label for="postal_code">Postcode</label>
+                <label for="postal_code">Postal code</label>
                 <input type="text" class="form-control" id="postal_code" name="postal_code" value="{{ $user->postal_code }}">
               </div>
             </div>

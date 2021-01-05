@@ -26,6 +26,15 @@
           <textarea class="form-control" id="bio" name="bio" rows="3" placeholder="Your description"></textarea>
           </div>
 
+         <div class="form-group">
+          <label for="type">Internship type</label>
+            <select class="btn btn-primary" name="type" id="type">
+                <option value="" disabled selected>Choose a type</option>
+                <option value="Design">Design</option>
+                <option value="Development">Development</option>
+            </select>
+          </div>
+
           <div class="form-group">
           <label for="req_skills">Internship required skills</label>
           <textarea class="form-control" id="req_skills" name="req_skills" rows="5" placeholder="Ex.&#10HTML&#10CSS&#10JS&#10PHP"></textarea>
@@ -33,12 +42,12 @@
 
           <div class="form-group">
           <label for="start">Internship start date</label>
-          <input type="text" class="form-control" id="start" name="start" placeholder="jjjj-mm-dd">
+          <input type="date" class="form-control" id="start" name="start" placeholder="jjjj-mm-dd">
           </div>
 
           <div class="form-group">
           <label for="end">Internship end date</label>
-          <input type="text" class="form-control" id="end" name="end" placeholder="jjjj-mm-dd">
+          <input type="date" class="form-control" id="end" name="end" placeholder="jjjj-mm-dd">
           </div>
 
           <button type="submit" class="btn btn-primary" name="company_id" value="{{request()->route('company_id')}}">Create internship</button>

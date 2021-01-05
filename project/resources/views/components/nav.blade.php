@@ -10,17 +10,17 @@
             {{ Auth::user()->firstname }}
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/user/profile">Profiel</a>
+            <a class="dropdown-item" href="/user/profile">Profile</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/logout">Afmelden</a>
+            <a class="dropdown-item" href="/logout">Logout</a>
           </div>
         </li>
       @else
         <li class="nav-item">
-          <a class="nav-link" href="/login">Inloggen</a>
+          <a class="nav-link" href="/login">Log in</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/register">Registreren</a>
+          <a class="nav-link" href="/register">Register</a>
         </li>
       @endif
     </ul>

@@ -20,6 +20,7 @@ class CreateInternshipsTable extends Migration
             $table->date('start'); //Start of stage
             $table->date('end');    //End of stage
             $table->text('req_skills');
+            $table->text('type'); //Design or Development
             $table->integer('company_id');
             $table->timestamps();
         });

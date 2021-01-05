@@ -7,10 +7,10 @@
         <a class="nav-link" href="/">Home</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/students">Studenten</a>
+        <a class="nav-link" href="/students">Students</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/internships">Stages</a>
+        <a class="nav-link" href="/internships">Internships</a>
     </li>
 @endsection
 

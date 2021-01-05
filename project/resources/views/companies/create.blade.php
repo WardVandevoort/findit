@@ -43,10 +43,10 @@
     </div>
 
     <div class="col">
-      <input type="text" class="form-control" id="city" name="city"  placeholder="city name" value="" readonly>
+      <input type="text" class="form-control" id="city" name="city"  placeholder="City name" value="" readonly>
     </div>
     <div class="col">
-      <input type="text" class="form-control" id="postalCode" name="postal_code"  placeholder="postalCode" value="" readonly>
+      <input type="text" class="form-control" id="postalCode" name="postal_code"  placeholder="Postal code" value="" readonly>
     </div>
 
 

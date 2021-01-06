@@ -1,5 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);
-
+@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
 /*!
  * Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com
@@ -17065,6 +17064,10 @@ h3 a {
   border-right: 1px inset #0000001f;
   padding-right: 0.35em;
   margin-right: 0.35em;
+}
+
+.notifications {
+  width: 40vw;
 }
 
 /*---------Nearest-Station-Card------------*/

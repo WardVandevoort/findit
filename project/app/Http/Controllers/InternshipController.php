@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Internship;
+use App\Models\User;
+use App\Notifications\NewInternship;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class InternshipController extends Controller
 {
     public function index()
     {
-        $data['internships'] = \DB::table('internships')->get();
+        $data['internships'] = Internship::all();
         return view('internships/index', $data);
     }
 
@@ -25,7 +30,7 @@ class InternshipController extends Controller
 
     public function store(Request $request)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         $company = \App\Models\Company::where('id', $request->input('company_id'))->first();
         if( $user->can('update', $company)){
 
@@ -38,6 +43,9 @@ class InternshipController extends Controller
             $internship->end = $request->input('end');
             $internship->company_id = $request->input('company_id');
             $internship->save();
+
+            $notifReceiver = User::where('company_admin', 0)->get();
+            Notification::send($notifReceiver, new NewInternship($internship));
 
         return redirect('/companies');
         }

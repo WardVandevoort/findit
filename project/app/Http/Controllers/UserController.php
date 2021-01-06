@@ -202,6 +202,43 @@ class UserController extends Controller
         return redirect('/user/profile');
     }
 
+    public function getNotifs(){
+        $user = User::find(Auth::id());
+        $unreadMessages = $user->unreadNotifications->count();
+        $notifs = collect();
+        foreach($user->notifications->sortBy('created_at') as $notif){
+            $text = "";
+            switch ($notif->type) {
+                case 'App\Notifications\NewInternship':
+                    $text = "A new internship has been placed: {$notif->data['internship_title']}";
+                    break;
+                case 'App\Notifications\NewApplication':
+                    $text = "A new application has been submitted for: {$notif->data['internship_title']}";
+                    break;
+                
+            }
+
+            $notifs->push($text);
+            
+        }
+        
+        return response()->json([
+            'unread' => $unreadMessages,
+            'notifs' => $notifs
+            ]);
+    }
+
+    public function markAsReadNotifs(){
+        $user = User::find(Auth::id());
+        $notifs = tap($user->notifications)->markAsRead();
+        $unreadMessages = $user->unreadNotifications->count();
+        
+        return response()->json([
+            'unread' => $unreadMessages,
+            'notifs' => $notifs
+            ]);
+    }
+
     public function logout(){
         Auth::logout();
         return redirect('/');

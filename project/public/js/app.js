@@ -38215,8 +38215,6 @@ var linkedinValidation = new Vue({
           _token: token
         },
         success: function success(data) {
-          console.log('success');
-          console.log(data);
           appVue.emailValidClass = '';
           appVue.emailFbClass = 'valid-feedback';
           appVue.emailErrors = [];
@@ -38236,8 +38234,6 @@ var linkedinValidation = new Vue({
           }
         },
         error: function error(err) {
-          console.log('error');
-
           if (err.status == 422) {
             console.log(err.responseJSON.errors);
 
@@ -38255,6 +38251,53 @@ var linkedinValidation = new Vue({
       this.formPath = '/register';
       this.showBackButton = false;
       this.title = 'Geef je school email in';
+    }
+  }
+});
+Vue.component("notif", {
+  template: "<li class=\"list-group-item\">{{notification}}</li>",
+  props: ['notification']
+});
+var notification = new Vue({
+  el: '#notif',
+  data: {
+    notifUnread: true,
+    unReadNotifs: 0,
+    notifications: []
+  },
+  mounted: function mounted() {
+    setInterval(this.getNotifsAmount, 5000);
+  },
+  methods: {
+    getNotifsAmount: function getNotifsAmount() {
+      var that = this;
+      $.ajax({
+        type: 'GET',
+        url: '/notifs/getNotifs',
+        success: function success(data) {
+          that.unReadNotifs = data.unread;
+          that.notifUnread = data.unread == 0 ? false : true;
+          that.notifications = data.notifs;
+        },
+        error: function error(err) {
+          console.log(err);
+        }
+      });
+    },
+    notifsRead: function notifsRead() {
+      var that = this;
+      $.ajax({
+        type: 'GET',
+        url: '/notifs/markAsRead',
+        success: function success(data) {
+          that.notifUnread = false;
+          that.unReadNotifs = data.unread;
+        },
+        error: function error(err) {
+          console.log('error');
+          console.log(err);
+        }
+      });
     }
   }
 });
@@ -38324,8 +38367,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Madina\School\Thomas_More\Fase_3\Webtech_backend\Laravel-projects\findit\project\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Madina\School\Thomas_More\Fase_3\Webtech_backend\Laravel-projects\findit\project\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

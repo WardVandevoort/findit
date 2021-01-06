@@ -11,14 +11,14 @@
 @section('content')
 
 <h1>
-@if( \Auth::user()->can('update', $company ))
+@if( Auth::user()->can('update', $company ))
 <span class="admin">Logo: </span>
 @endif
 </h1>
 
 <img class="img-fluid" src="{{ asset('/storage/companyImages/' . $company->logo) }}" alt="companyLogo">
 
-@if( \Auth::user()->can('update', $company ))
+@if( Auth::user()->can('update', $company ))
 <a class="change" id="1" href="#" >Change logo</a>
 
 <form class="hidden" id="form1" method="post" action="/companies/update" enctype="multipart/form-data">
@@ -35,12 +35,12 @@
 @endif
 
 <h1>
-@if( \Auth::user()->can('update', $company ))
+@if( Auth::user()->can('update', $company ))
 <span class="admin">Name: </span>
 @endif
 {{ $company->name }}</h1>
 
-@if( \Auth::user()->can('update', $company ))
+@if( Auth::user()->can('update', $company ))
 <a class="change" id="2" href="#" >Change name</a>
 
 <form class="hidden" id="form2" method="post" action="/companies/update">
@@ -57,12 +57,12 @@
 @endif
 
 <h2>
-@if( \Auth::user()->can('update', $company ))
+@if( Auth::user()->can('update', $company ))
 <span class="admin">Slogan: </span>
 @endif
 {{ $company->slogan }}</h2>
 
-@if( \Auth::user()->can('update', $company ))
+@if( Auth::user()->can('update', $company ))
 <a class="change" id="3" href="#" >Change slogan</a>
 
 <form class="hidden" id="form3" method="post" action="/companies/update">
@@ -79,12 +79,12 @@
 @endif
 
 <h3>
-@if( \Auth::user()->can('update', $company ))
+@if( Auth::user()->can('update', $company ))
 <span class="admin">Description: </span>
 @endif
 {{ $company->description }}</h3>
 
-@if( \Auth::user()->can('update', $company ))
+@if( Auth::user()->can('update', $company ))
 <a class="change" id="4" href="#" >Change description</a>
 
 <form class="hidden" id="form4" method="post" action="/companies/update">
@@ -193,7 +193,7 @@
         </ul>
     </div>
 
-    @if( \Auth::user()->can('update', $company ))
+    @if( Auth::user()->can('update', $company ))
     <a class="btn btn-primary" href="/internships/create/{{ $company->id }}" >Create internship</a>
     @endif
 

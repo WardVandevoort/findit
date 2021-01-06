@@ -165,8 +165,6 @@ var linkedinValidation = new Vue({
                     _token: token
                 },
                 success:function(data) {
-                    console.log('success');
-                    console.log(data);
                     appVue.emailValidClass='';
                     appVue.emailFbClass='valid-feedback';
                     appVue.emailErrors = [];
@@ -187,7 +185,6 @@ var linkedinValidation = new Vue({
                     
                 },
                 error:function(err){
-                    console.log('error');
                     if(err.status == 422){
                         console.log(err.responseJSON.errors);
                         if(err.responseJSON.errors.email){
@@ -205,6 +202,57 @@ var linkedinValidation = new Vue({
             this.formPath = '/register';
             this.showBackButton = false;
             this.title = 'Geef je school email in';
+        }
+    }
+});
+
+Vue.component("notif", {
+    template: `<li class="list-group-item">{{notification}}</li>`,
+    props: ['notification']
+  });
+
+var notification = new Vue({
+    el: '#notif',
+    data: {
+        notifUnread: true,
+        unReadNotifs: 0,
+        notifications: []
+    },
+    mounted: function(){
+        setInterval(this.getNotifsAmount, 5000)
+    },
+    methods: {
+        getNotifsAmount: function(){
+            var that = this;
+            $.ajax({
+                type:'GET',
+                url:'/notifs/getNotifs',
+                success:function(data) {
+                    that.unReadNotifs = data.unread;
+                    that.notifUnread = (data.unread == 0)? false: true;
+                    that.notifications = data.notifs;
+                },
+                error:function(err){
+                    console.log(err);
+                    
+                }
+            });
+        },
+        notifsRead: function(){
+            var that = this;
+            $.ajax({
+                type:'GET',
+                url:'/notifs/markAsRead',
+                success:function(data) {
+                    that.notifUnread = false;
+                    that.unReadNotifs = data.unread;
+                },
+                error:function(err){
+                    console.log('error');
+                    console.log(err);
+                    
+                }
+            });
         }
     }
 });

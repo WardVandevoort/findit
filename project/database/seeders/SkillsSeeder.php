@@ -18,12 +18,12 @@ class SkillsSeeder extends Seeder
         $faker = Factory::create();
 
         $skills = [
-            ['name' => 'HTML, CSS & JS', 'description' => $faker->realText(200)],
-            ['name' => 'Adobe Creative Cloud', 'description' => $faker->realText(200)],
-            ['name' => 'Logo Design', 'description' => $faker->realText(200)],
-            ['name' => 'UX Design', 'description' => $faker->realText(200)],
-            ['name' => 'Frameworks', 'description' => $faker->realText(200)],
-            ['name' => 'Git & GitHub', 'description' => $faker->realText(200)]
+            ['name' => 'HTML, CSS & JS', 'description' => $faker->realText(200), 'type' => 'development'],
+            ['name' => 'Adobe Creative Cloud', 'description' => $faker->realText(200), 'type' => 'design'],
+            ['name' => 'Logo Design', 'description' => $faker->realText(200), 'type' => 'design'],
+            ['name' => 'UX Design', 'description' => $faker->realText(200), 'type' => 'design'],
+            ['name' => 'Frameworks', 'description' => $faker->realText(200), 'type' => 'development'],
+            ['name' => 'Git & GitHub', 'description' => $faker->realText(200), 'type' => 'development']
         ];
 
         foreach($skills as $skill){

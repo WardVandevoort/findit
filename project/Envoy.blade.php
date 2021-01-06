@@ -15,6 +15,17 @@ php artisan migrate --force
 php artisan up
 @endtask
 
+@task('hard-deploy-production', ['on' => 'production'])
+cd /home/deploybot/app/findit/project
+php artisan down
+git reset --hard HEAD
+git pull origin master
+composer dump-autoload -o
+php artisan migrate:refresh --force
+php artisan db:seed
+php artisan up
+@endtask
+
 @task('production-up', ['on' => 'production'])
 cd /home/deploybot/app/findit/project
 php artisan up
@@ -32,6 +43,17 @@ git reset --hard HEAD
 git pull origin master
 composer dump-autoload -o
 php artisan migrate --force
+php artisan up
+@endtask
+
+@task('hard-deploy-dev', ['on' => 'dev'])
+cd /home/deploybot/beta-app/findit/project
+php artisan down
+git reset --hard HEAD
+git pull origin master
+composer dump-autoload -o
+php artisan migrate:refresh --force
+php artisan db:seed
 php artisan up
 @endtask
 

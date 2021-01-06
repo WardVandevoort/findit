@@ -14,6 +14,7 @@ class ApplicationController extends Controller
 {
     public function index()
     {
+        return view('applications/index');
     }
 
     public function show($application)
@@ -27,6 +28,7 @@ class ApplicationController extends Controller
         $data2['internship'] = \App\Models\Internship::where('id', $internship)->first();
 
         if (Auth::user()) { // Check is user logged in
+            session(['internship' => $data2]);
             return view("applications/create", $data, $data2);
         } else {
             return redirect('/login');
@@ -44,15 +46,12 @@ class ApplicationController extends Controller
             'motivation.min' => 'Voer een motivatie in met minstens 20 karakters.',
         ];
 
-        $validation = $request->validate($rules, $messages);
-
-
         $application = new Application();
         $application->motivation = $request->input('motivation');
         $application->user_id = Auth::user()->id;
         $application->internship_id = \Request::segment(2);
         $application->save();
         $request->session()->flash('message', 'Proficiat, u heeft gesolliciteerd!');
-        return view("applications/overview");
+        return redirect('/');
     }
 }

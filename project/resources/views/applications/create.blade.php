@@ -18,6 +18,8 @@
 
 
 <h1>{{ $internship->title }}</h1>
+<p>{{ $internship->bio }}</p>
+
 
 <form method="post" action="/applications/{{ $internship->id }}">
 

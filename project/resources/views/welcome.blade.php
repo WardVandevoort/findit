@@ -3,26 +3,29 @@
 @section('title', 'Home')
 
 @section('nav')
-    <li class="nav-item">
-        <a class="nav-link" href="/students">Students</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/internships">Internships</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/companies">Companies</a>
-    </li>
+<li class="nav-item">
+    <a class="nav-link" href="/students">Students</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/internships">Internships</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/applications">My applications</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/companies">Companies</a>
+</li>
 @endsection
 
 @section('content')
 
 <form class="form-group" type="get" action="{{url('/')}}">
     <div>
-            <select class="btn btn-primary" name="type" id="type">
-                <option value="" selected>Choose a type</option>
-                <option value="Design">Design</option>
-                <option value="Development">Development</option>
-            </select>
+        <select class="btn btn-primary" name="type" id="type">
+            <option value="" selected>Choose a type</option>
+            <option value="Design">Design</option>
+            <option value="Development">Development</option>
+        </select>
     </div>
 
     <label for="startDate">Internship start date</label>

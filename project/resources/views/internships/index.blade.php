@@ -3,15 +3,18 @@
 @section('title', 'Stages')
 
 @section('nav')
-    <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/students">Students</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/companies">Companies</a>
-    </li>
+<li class="nav-item">
+    <a class="nav-link" href="/students">Students</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/internships">Internships</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/applications">My applications</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/companies">Companies</a>
+</li>
 @endsection
 
 @section('content')

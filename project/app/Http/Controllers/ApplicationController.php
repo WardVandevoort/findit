@@ -14,12 +14,18 @@ class ApplicationController extends Controller
 {
     public function index()
     {
-        return view('applications/index');
+        $userId = Auth::id();
+        $company = \DB::table('users')->select('id')->where("company_admin", 1)->where("id", $userId)->first();
+        if ($company == $userId) {
+            return view('applications/index2');
+        }
+        $internship['internship'] = \DB::table('applications')->join('internships', 'applications.internship_id', 'internships.id')->where('user_id', $userId)->get();
+        return view('applications/index', $internship);
     }
 
     public function show($application)
     {
-        $application =  \DB::table('applications')->where('id', $application)->first();
+        $application =  \DB::table('applications')->whereIn('id', $application)->first();
     }
 
     public function create($internship)
@@ -37,6 +43,7 @@ class ApplicationController extends Controller
 
     public function store(Request $request)
     {
+
         $rules = [
             'motivation' => 'required|min:20',
         ];

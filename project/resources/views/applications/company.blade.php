@@ -22,23 +22,18 @@
 <h1>My applications</h1>
 
 
-@foreach( $internship as $insternship )
 <div class="card-deck mb-3 text-center">
     <div class="card mb-4 shadow-sm">
         <div class="card-header">
-            <h3>{{ $internship->title}}</h3>
 
         </div>
         <div class="card-body">
             <h4>Status</h4>
-            <p>{{ $internship->status}}</p>
             <h4>motivation</h4>
-            <p>{{ $internship->motivation}}</p>
 
         </div>
     </div>
 </div>
 
-@endforeach
 
 @endsection

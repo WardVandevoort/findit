@@ -5,11 +5,18 @@
     deploy-dev
 @endstory
 
+@story('hard-deploy')
+    hard-deploy-production
+    hard-deploy-dev
+@endstory
+
+
 @task('deploy-production', ['on' => 'production'])
 cd /home/deploybot/app/findit/project
 php artisan down
 git reset --hard HEAD
 git pull origin master
+composer install
 composer dump-autoload -o
 php artisan migrate --force
 php artisan up
@@ -42,6 +49,7 @@ cd /home/deploybot/beta-app/findit/project
 php artisan down
 git reset --hard HEAD
 git pull origin master
+composer install
 composer dump-autoload -o
 php artisan migrate --force
 php artisan up
@@ -52,6 +60,7 @@ cd /home/deploybot/beta-app/findit/project
 php artisan down
 git reset --hard HEAD
 git pull origin master
+composer install
 composer dump-autoload -o
 php artisan migrate:refresh --force
 php artisan db:seed

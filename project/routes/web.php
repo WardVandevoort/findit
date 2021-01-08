@@ -27,7 +27,7 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('auth');
 
-Route::post('/ajax/check-email', [AjaxController::class,'checkEmail']);
+Route::post('/ajax/check-email', [AjaxController::class, 'checkEmail']);
 Route::get('/notifs/getNotifs', [UserController::class, 'getNotifs']);
 Route::get('/notifs/markAsRead', [UserController::class, 'markAsReadNotifs']);
 
@@ -59,6 +59,7 @@ Route::get('/applications/{internship}', [ApplicationController::class, 'show'])
 Route::get('/applications/create/{internship}', [ApplicationController::class, 'create'])->middleware('auth');
 Route::post('/applications/{internship}', [ApplicationController::class, 'store'])->middleware('auth');
 Route::get('/applications/overview', [ApplicationController::class, 'overview'])->middleware('auth');
+Route::patch('/applications/company', [ApplicationController::class, 'update'])->middleware('auth');
 
 
 

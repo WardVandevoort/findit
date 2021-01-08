@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Flight;
+
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -27,12 +29,12 @@ class ApplicationController extends Controller
             //what company?
             $company =  \App\Models\Company::select('id')->where("admin_id", $userId)->pluck("id");
             //applications for that company
-            $companyApplications['companyApplications'] =  \App\Models\Internship::join('companies', 'companies.id', 'internships.company_id')->where('company_id', $company)->get();
+            $companyApplications =  \App\Models\Internship::join('companies', 'companies.id', 'internships.company_id')->where('company_id', $company)->get();
             $internshipid =  \App\Models\Internship::select('internships.id')->join('companies', 'companies.id', 'internships.company_id')->where('company_id', $company)->pluck('id');
+            $internships =  \App\Models\Internship::join('applications', 'applications.internship_id', 'internships.company_id')->where('company_id', $company)->get();
             //studentinfo
-            $student['students'] =  \App\Models\Application::join('users', 'users.id', 'applications.user_id')->where('internship_id', $internshipid)->get();
-            // dd($student);
-            return view('applications/company', $companyApplications, $student);
+            $students =  \App\Models\Application::join('users', 'users.id', 'applications.user_id')->where('internship_id', $internshipid)->get();
+            return view('applications/company', compact('companyApplications', 'students', 'internships', 'internshipid'));
         } else {
             $applications['applications'] =  \App\Models\Internship::join('applications', 'applications.internship_id', 'internships.id')->where('user_id', $userId)->get();
             return view('applications/index', $applications);
@@ -76,5 +78,17 @@ class ApplicationController extends Controller
         $application->save();
         $request->session()->flash('message', 'Proficiat, u heeft gesolliciteerd!');
         return redirect('/');
+    }
+
+    public function update(Request $request,  $internshipid)
+    {
+        $flight = Flight::find($internshipid);
+
+        $flight->status = $request;
+
+        $flight->save();
+        $request->session()->flash('message', 'Application is up to date!');
+
+        return redirect('/applications/company');
     }
 }

@@ -25,7 +25,7 @@ class CompaniesSeeder extends Seeder
                 'city' => 'Herentals', 
                 'postal_code' => '2200', 
                 'province' => 'Antwerp', 
-                'slogan' => 'You never walk alone!', 
+                'slogan' => 'You never walk alone!',
                 'description' => 'Intracto geeft als digital agency de ondernemingen van morgen vorm op gebied van marketing, strategie, communicatie en technologie. Onze campussen in België en Nederland barsten van het talent om uitdagende projecten naar een hoger niveau te tillen.', 
             ],
             [

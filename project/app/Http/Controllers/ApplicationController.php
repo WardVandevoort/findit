@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Flight;
 use App\Models\User;
+use App\Notifications\NewApplication;
+use App\Notifications\UpdateApplication;
+use Database\Seeders\CompaniesSeeder;
+use Illuminate\Support\Facades\Notification;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -54,7 +58,7 @@ class ApplicationController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store($internship, Request $request)
     {
 
         $rules = [
@@ -71,6 +75,12 @@ class ApplicationController extends Controller
         $application->user_id = Auth::user()->id;
         $application->internship_id = \Request::segment(3);
         $application->save();
+
+        $companyId = $application->internship->company_id;
+        $userId = Company::find($companyId)->admin_id;
+        $user = User::find($userId);
+        Notification::send($user, new NewApplication($application->internship));
+
         $request->session()->flash('message', 'Proficiat, u heeft gesolliciteerd!');
         return redirect('/');
     }
@@ -78,10 +88,18 @@ class ApplicationController extends Controller
     public function update(Request $request)
     {
 
-        $internshipid =  $request->input('id');
-        \App\Models\Application::where('id', $internshipid)->update(['status' => $request])->limit(1);
-        $request->session()->flash('message', 'Application is up to date!');
+        $applicationId =  $request->input('applicationId');
+        $application = Application::find($applicationId);
+        $application->status = $request->input('status');
+        $application->save();
+        
+        if($application->status != 1){
+            $user = User::find($application->user_id);
+            Notification::send($user, new UpdateApplication($application));
+        }
 
-        return redirect('/applications/company');
+        return response()->json([
+            'applicant' => $user->firstname
+            ]);
     }
 }

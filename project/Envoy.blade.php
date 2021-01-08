@@ -20,6 +20,7 @@ cd /home/deploybot/app/findit/project
 php artisan down
 git reset --hard HEAD
 git pull origin master
+composer install
 composer dump-autoload -o
 php artisan migrate:refresh --force
 php artisan db:seed

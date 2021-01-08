@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Internship;
 use App\Models\Skill;
 use App\Models\User;
 use Exception;
@@ -214,6 +215,21 @@ class UserController extends Controller
                     break;
                 case 'App\Notifications\NewApplication':
                     $text = "A new application has been submitted for: {$notif->data['internship_title']}";
+                    break;
+                case 'App\Notifications\UpdateApplication':
+                    $internshipTitle = Internship::find($notif->data['internship_id'])->title;
+                    switch ($notif->data['application_status']) {
+                        case 2:
+                            $text = "You have to contact the company";
+                            break;
+                        case 3:
+                            $text = "Your application has been accepted";
+                            break;
+                        case 3:
+                            $text = "Your application has been declined";
+                            break;
+                    }
+                    $text = $text + " for the internship: {$internshipTitle}.";
                     break;
                 
             }

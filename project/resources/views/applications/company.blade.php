@@ -60,7 +60,7 @@
                                     <td>{{$application->motivation}}</td>
                                     <td>
                                         <div class="form-group">
-                                            <select class="form-control" data-application="{{$application->id}}">
+                                            <select class="form-control status" data-application="{{$application->id}}">
                                                 <option value="1" {{ ($application->status == 1) ? "selected":"" }}>Nog niet bekeken</option>
                                                 <option value="2" {{ ($application->status == 2) ? "selected":"" }}>We nemen contact op</option>
                                                 <option value="3" {{ ($application->status == 3) ? "selected":"" }}>Geaccepteerd</option>

@@ -38303,11 +38303,29 @@ var notification = new Vue({
 });
 $('.btn-update-status').on("click", function (e) {
   var target = $(e.target);
-  var applicationId = target.dataset.application;
-  var input = $("input[data-application=${applicationId}]").val();
-  console.log(input);
+  var applicationId = target.data("application");
+  var parentRow = target.parent().parent();
+  var status = parentRow.find(".status").val();
   var token = $('input[name="_token"]').val();
-  alert(target.dataset.application);
+  $.ajax({
+    type: 'POST',
+    url: '/applications/company',
+    data: {
+      applicationId: applicationId,
+      status: status,
+      _token: token
+    },
+    success: function success(data) {
+      $(".container.status").prepend('<div class="alert alert-success alert-dismissible fade show" role="alert"></div>');
+      $("div.alert").append('Status geüpdate voor ' + data.applicant);
+      $("div.alert").append('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
+    },
+    error: function error(err) {
+      $(".container.status").prepend('<div class="alert alert-danger alert-dismissible fade show" role="alert"></div>');
+      $("div.alert").append('Er is een error.');
+      $("div.alert").append('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
+    }
+  });
 });
 
 /***/ }),

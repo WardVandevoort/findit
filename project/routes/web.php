@@ -57,9 +57,9 @@ Route::get('/', [InternshipController::class, 'search'])->middleware('auth');
 Route::get('/applications', [ApplicationController::class, 'index'])->middleware('auth');
 Route::get('/applications/{internship}', [ApplicationController::class, 'show'])->middleware('auth');
 Route::get('/applications/create/{internship}', [ApplicationController::class, 'create'])->middleware('auth');
-Route::post('/applications/{internship}', [ApplicationController::class, 'store'])->middleware('auth');
+Route::post('/applications/create/{internship}', [ApplicationController::class, 'store'])->middleware('auth');
 Route::get('/applications/overview', [ApplicationController::class, 'overview'])->middleware('auth');
-Route::patch('/applications/company', [ApplicationController::class, 'update'])->middleware('auth');
+Route::post('/applications/company', [ApplicationController::class, 'update'])->middleware('auth');
 
 
 

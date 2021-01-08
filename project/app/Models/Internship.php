@@ -13,4 +13,8 @@ class Internship extends Model
     {
         return $this->hasMany('\App\Models\Company');
     }
+
+    public function applications(){
+        return $this->hasMany('\App\Models\Application');
+    }
 }

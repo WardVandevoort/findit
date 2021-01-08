@@ -15,4 +15,12 @@ class Application extends Model
     {
         return $this->hasMany('\App\Models\Application');
     }
+
+    public function internship(){
+        return $this->belongsTo('\App\Models\Internship');
+    }
+
+    public function user(){
+        return $this->belongsTo('\App\Models\user');
+    }
 }

@@ -44,7 +44,7 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Skill')->withPivot('type','progress', 'description');
     }
 
-    public function links(){
-        return $this->hasMany('\App\Models\PortfolioLink');
+    public function applications(){
+        return $this->hasMany('\App\Models\Application');
     }
 }

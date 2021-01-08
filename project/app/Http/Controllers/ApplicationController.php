@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Flight;
-
+use App\Models\User;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -19,22 +20,16 @@ class ApplicationController extends Controller
 
         \App\Models\Company::All();
         $userId = Auth::id();
-        $companyOwner = \DB::table('users')->select('id')->where("company_admin", 1)->where("id", $userId)->first();
 
-        $data['user'] = \App\Models\User::find(Auth::id());
+        $data['user'] = User::find(Auth::id());
 
         if ($data['user']->company_admin == 1) {
             //companyowner is known
 
             //what company?
-            $company =  \App\Models\Company::select('id')->where("admin_id", $userId)->pluck("id");
-            //applications for that company
-            $companyApplications =  \App\Models\Internship::join('companies', 'companies.id', 'internships.company_id')->where('company_id', $company)->get();
-            $internshipid =  \App\Models\Internship::select('internships.id')->join('companies', 'companies.id', 'internships.company_id')->where('company_id', $company)->pluck('id');
-            $internships =  \App\Models\Internship::join('applications', 'applications.internship_id', 'internships.company_id')->where('company_id', $company)->get();
-            //studentinfo
-            $students =  \App\Models\Application::join('users', 'users.id', 'applications.user_id')->where('internship_id', $internshipid)->get();
-            return view('applications/company', compact('companyApplications', 'students', 'internships', 'internshipid'));
+            $company =  Company::where("admin_id", $userId)->first();
+            $data['applications'] = $company->applications;
+            return view('applications/company', $data);
         } else {
             $applications['applications'] =  \App\Models\Internship::join('applications', 'applications.internship_id', 'internships.id')->where('user_id', $userId)->get();
             return view('applications/index', $applications);
@@ -80,7 +75,7 @@ class ApplicationController extends Controller
         return redirect('/');
     }
 
-    public function update(Request $request,  $internshipid)
+    public function update(Request $request)
     {
         $flight = Flight::find($internshipid);
 

@@ -12,4 +12,8 @@ class Company extends Model
     public function internships(){
         return $this->hasMany('\App\Models\Internship');
     }
+
+    public function applications(){
+        return $this->hasManyThrough('App\Models\Application', 'App\Models\Internship');
+    }
 }

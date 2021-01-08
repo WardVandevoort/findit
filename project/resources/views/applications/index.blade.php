@@ -31,7 +31,21 @@
         </div>
         <div class="card-body">
             <h4>Status</h4>
-            <p>{{ $application->status}}</p>
+            @switch($application->status)
+            @case(1)
+                <p>{{ No answer yet }}</p>
+                @break
+
+            @case(2)
+                <p>{{ Get in touch with the company }}</p>
+                @break
+            @case(3)
+                <p>{{ Accepted }}</p>
+                @break
+            @case(2)
+                <p>{{ Denied }}</p>
+                @break
+            @endswitch
             <h4>motivation</h4>
             <p>{{ $application->motivation}}</p>
 

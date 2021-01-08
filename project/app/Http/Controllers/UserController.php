@@ -207,7 +207,7 @@ class UserController extends Controller
         $user = User::find(Auth::id());
         $unreadMessages = $user->unreadNotifications->count();
         $notifs = collect();
-        foreach($user->notifications->sortBy('created_at') as $notif){
+        foreach($user->notifications->sortByDesc('created_at') as $notif){
             $text = "";
             switch ($notif->type) {
                 case 'App\Notifications\NewInternship':
@@ -220,16 +220,15 @@ class UserController extends Controller
                     $internshipTitle = Internship::find($notif->data['internship_id'])->title;
                     switch ($notif->data['application_status']) {
                         case 2:
-                            $text = "You have to contact the company";
+                            $text = "You have to contact the company for the internship: {$internshipTitle}.";
                             break;
                         case 3:
-                            $text = "Your application has been accepted";
+                            $text = "Your application has been accepted for the internship: {$internshipTitle}.";
                             break;
                         case 4:
-                            $text = "Your application has been declined";
+                            $text = "Your application has been declined for the internship: {$internshipTitle}.";
                             break;
                     }
-                    $text = $text + " for the internship: {$internshipTitle}.";
                     break;
                 
             }

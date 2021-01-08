@@ -219,13 +219,13 @@ class UserController extends Controller
                 case 'App\Notifications\UpdateApplication':
                     $internshipTitle = Internship::find($notif->data['internship_id'])->title;
                     switch ($notif->data['application_status']) {
-                        case 2:
+                        case "2":
                             $text = "You have to contact the company";
                             break;
-                        case 3:
+                        case "3":
                             $text = "Your application has been accepted";
                             break;
-                        case 3:
+                        case "4":
                             $text = "Your application has been declined";
                             break;
                     }

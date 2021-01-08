@@ -69,7 +69,7 @@ class ApplicationController extends Controller
         $application = new Application();
         $application->motivation = $request->input('motivation');
         $application->user_id = Auth::user()->id;
-        $application->internship_id = \Request::segment(2);
+        $application->internship_id = \Request::segment(3);
         $application->save();
         $request->session()->flash('message', 'Proficiat, u heeft gesolliciteerd!');
         return redirect('/');
@@ -77,11 +77,9 @@ class ApplicationController extends Controller
 
     public function update(Request $request)
     {
-        $flight = Flight::find($internshipid);
 
-        $flight->status = $request;
-
-        $flight->save();
+        $internshipid =  $request->input('id');
+        \App\Models\Application::where('id', $internshipid)->update(['status' => $request])->limit(1);
         $request->session()->flash('message', 'Application is up to date!');
 
         return redirect('/applications/company');

@@ -21,7 +21,7 @@
 <p>{{ $internship->bio }}</p>
 
 
-<form method="post" action="/applications/{{ $internship->id }}">
+<form method="post" action="/applications/create/{{ $internship->id }}">
 
     {{ csrf_field() }}
 

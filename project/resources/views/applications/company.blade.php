@@ -39,14 +39,13 @@
 
         <div class="col-sm-10">
             <div class="card-body">
-
                 <form action="/applications/company" method="post">
                     {{csrf_field()}}
                     @foreach( $applications as $application )
                         <h5 class="card-title">{{$application}}</h5>
                     @endforeach
 
-                    <button type="submit" class="btn btn-primary">Update status</button>
+                    <button type=" submit" class="btn btn-primary">Update status</button>
                 </form>
 
 

@@ -90,7 +90,7 @@ class ApplicationController extends Controller
 
         $applicationId =  $request->input('applicationId');
         $application = Application::find($applicationId);
-        $application->status = $request->input('status');
+        $application->status = (int)$request->input('status');
         $application->save();
         
         if($application->status != 1){

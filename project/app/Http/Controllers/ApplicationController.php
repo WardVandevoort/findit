@@ -14,17 +14,28 @@ class ApplicationController extends Controller
 {
     public function index()
     {
+
+        \App\Models\Company::All();
         $userId = Auth::id();
-        $company = \DB::table('users')->select('id')->where("company_admin", 1)->where("id", $userId)->first();
+        $companyOwner = \DB::table('users')->select('id')->where("company_admin", 1)->where("id", $userId)->first();
 
         $data['user'] = \App\Models\User::find(Auth::id());
-        $data['skills'] = \App\Models\Skill::where('active', '=', 1)->get();
 
         if ($data['user']->company_admin == 1) {
-            return view('applications/company', $data);
+            //companyowner is known
+
+            //what company?
+            $company =  \App\Models\Company::select('id')->where("admin_id", $userId)->pluck("id");
+            //applications for that company
+            $companyApplications['companyApplications'] =  \App\Models\Internship::join('companies', 'companies.id', 'internships.company_id')->where('company_id', $company)->get();
+            $internshipid =  \App\Models\Internship::select('internships.id')->join('companies', 'companies.id', 'internships.company_id')->where('company_id', $company)->pluck('id');
+            //studentinfo
+            $student['students'] =  \App\Models\Application::join('users', 'users.id', 'applications.user_id')->where('internship_id', $internshipid)->get();
+            // dd($student);
+            return view('applications/company', $companyApplications, $student);
         } else {
-            $internship['internship'] = \DB::table('applications')->join('internships', 'applications.internship_id', 'internships.id')->where('user_id', $userId)->get();
-            return view('applications/index', $internship);
+            $applications['applications'] =  \App\Models\Internship::join('applications', 'applications.internship_id', 'internships.id')->where('user_id', $userId)->get();
+            return view('applications/index', $applications);
         }
     }
 

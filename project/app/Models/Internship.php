@@ -9,7 +9,8 @@ class Internship extends Model
 {
     use HasFactory;
 
-    public function company(){
-        return $this->belongsTo('\App\Models\Company');
+    public function company()
+    {
+        return $this->hasMany('\App\Models\Company');
     }
 }

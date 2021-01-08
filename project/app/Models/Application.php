@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
+    protected $fillable = [
+        'title', 'status', 'motivation'
+    ];
     use HasFactory;
     public function applications()
     {

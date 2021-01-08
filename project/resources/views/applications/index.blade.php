@@ -22,18 +22,18 @@
 <h1>My applications</h1>
 
 
-@foreach( $internship as $insternship )
+@foreach( $applications as $application )
 <div class="card-deck mb-3 text-center">
     <div class="card mb-4 shadow-sm">
         <div class="card-header">
-            <h3>{{ $internship->title}}</h3>
+            <h3>{{ $application->title}}</h3>
 
         </div>
         <div class="card-body">
             <h4>Status</h4>
-            <p>{{ $internship->status}}</p>
+            <p>{{ $application->status}}</p>
             <h4>motivation</h4>
-            <p>{{ $internship->motivation}}</p>
+            <p>{{ $application->motivation}}</p>
 
         </div>
     </div>

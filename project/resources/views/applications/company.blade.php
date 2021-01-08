@@ -47,7 +47,8 @@
                 @endforeach
 
                 @foreach($internships as $internship)
-                <p class="card-text">motivation: {{$internship->motivation}}</p> @endforeach
+                <p class="card-text">motivation: {{$internship->motivation}}</p>
+                @endforeach
 
                 <form action="/applications/company" method="post">
                     {{csrf_field()}}
@@ -60,11 +61,12 @@
                             <option value="2" {{ ($internship->status == "2" ? "selected":"") }}>2</option>
                             <option value="3" {{ ($internship->status == "3" ? "selected":"") }}>3</option>
                             <option value="0" {{ ($internship->status == "0" ? "selected":"") }}>0</option>
-
                         </select>
                     </div>
+                    <input type="hidden" name="id" value="{{ $internship->internship_id }}">
 
-                    <button type="submit" class="btn btn-primary">Update status</button>
+
+                    <button type=" submit" class="btn btn-primary">Update status</button>
                 </form>
 
 

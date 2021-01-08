@@ -38301,6 +38301,14 @@ var notification = new Vue({
     }
   }
 });
+$('.btn-update-status').on("click", function (e) {
+  var target = $(e.target);
+  var applicationId = target.dataset.application;
+  var input = $("input[data-application=${applicationId}]").val();
+  console.log(input);
+  var token = $('input[name="_token"]').val();
+  alert(target.dataset.application);
+});
 
 /***/ }),
 
@@ -38367,8 +38375,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Madina\School\Thomas_More\Fase_3\Webtech_backend\Laravel-projects\findit\project\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Madina\School\Thomas_More\Fase_3\Webtech_backend\Laravel-projects\findit\project\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -256,3 +256,13 @@ var notification = new Vue({
         }
     }
 });
+
+$('.btn-update-status').on("click",function(e){
+    var target = $(e.target);
+    var applicationId = target.dataset.application;
+    var input = $("input[data-application=${applicationId}]").val();
+    console.log(input)
+    let token = $('input[name="_token"]').val();        
+    alert(target.dataset.application);
+
+});

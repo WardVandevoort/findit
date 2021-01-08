@@ -19,7 +19,7 @@ class CreateApplicationTable extends Migration
             $table->integer('user_id');
             $table->integer('internship_id');
             $table->text('motivation');
-            $table->integer('status')->default('1');
+            $table->integer('status')->default(1);
         });
     }
 

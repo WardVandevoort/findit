@@ -33,17 +33,17 @@
             <h4>Status</h4>
             @switch($application->status)
             @case(1)
-                <p>{{ No answer yet }}</p>
+                <p>No answer yet</p>
                 @break
 
             @case(2)
-                <p>{{ Get in touch with the company }}</p>
+                <p>Get in touch with the company</p>
                 @break
             @case(3)
-                <p>{{ Accepted }}</p>
+                <p>Accepted</p>
                 @break
-            @case(2)
-                <p>{{ Denied }}</p>
+            @case(4)
+                <p>Denied</p>
                 @break
             @endswitch
             <h4>motivation</h4>
